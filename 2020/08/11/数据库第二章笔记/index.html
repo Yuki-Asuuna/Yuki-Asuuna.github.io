@@ -452,12 +452,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-08-11
+                </div>
                 
 
                 
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    590
+                </div>
+                
 
                 
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    2 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
         </div>
         <hr class="clearfix">
@@ -512,7 +532,7 @@
 </li>
 <li><p>聚集</p>
 <p>聚集运算可以用下列式子来表达：<br>$$<br>_{G_1,G_2,…G_n} G _{F_1(A_1),F_2(A_2),…,F_m(A_m)}(E)<br>$$<br>其中G<del>n</del> 是属性名，表示要聚集的属性，F<del>n</del>(A<del>m</del>)表示聚集函数，比如$avg$，$sum$等</p>
-<p>例如：<br>$$<br><em>{deptname}G</em>{average(salary)}(instructor)<br>$$<br>就表示：先对表$instructor$中的$deptname$做聚集，然后再对每一个分组的$salary$属性求平均。</p>
+<p>例如：<br>$$<br>_ {deptname}G _{average(salary)} (instructor)<br>$$<br>就表示：先对表$instructor$中的$deptname$做聚集，然后再对每一个分组的$salary$属性求平均。</p>
 </li>
 </ol>
 
@@ -945,6 +965,9 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">51.8k</span>&nbsp;字
             
             
             
