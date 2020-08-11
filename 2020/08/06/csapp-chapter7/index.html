@@ -1,0 +1,1315 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="《CSAPP》第七章链接笔记, SYH的博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>《CSAPP》第七章链接笔记 | SYH的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">SYH的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">SYH的博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">《CSAPP》第七章链接笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-06
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="CSAPP-第七章链接"><a href="#CSAPP-第七章链接" class="headerlink" title="CSAPP 第七章链接"></a>CSAPP 第七章链接</h1><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><h3 id="1-1-链接的定义"><a href="#1-1-链接的定义" class="headerlink" title="1.1 链接的定义"></a>1.1 链接的定义</h3><p>​        链接就是将各种代码和数据片段收集并组合成单一文件的过程。</p>
+<p>​        链接技术使得<strong>分离编译</strong>成为可能。我们不需要将一个大型文件组织成一个巨大的源文件，而是可以将其分解为更小的模块。当我们对程序某个部分进行修改的时候，只需要重新编译其所在的模块，再将其链接即可。</p>
+<h2 id="2-编译器驱动程序"><a href="#2-编译器驱动程序" class="headerlink" title="2.编译器驱动程序"></a>2.编译器驱动程序</h2><p><img src="/2020/08/06/csapp-chapter7/1.png"></p>
+<pre class="line-numbers language-bash"><code class="language-bash">gcc -Og -o prog main.c sum.c
+./prog <span class="token comment" spellcheck="true">#shell调用加载器loader，将prog复制到内存，并将控制流转移到程序开头</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>​        编译过程：源文件-&gt;预处理器(cpp/生成.i文件)-&gt;编译器(ccl/生成.s文件)-&gt;汇编器(as/生成.o文件)-&gt;链接器(ld/生成.exe文件)</p>
+<h2 id="3-目标文件"><a href="#3-目标文件" class="headerlink" title="3.目标文件"></a>3.目标文件</h2><h3 id="3-1-可重定位目标文件（-o文件）"><a href="#3-1-可重定位目标文件（-o文件）" class="headerlink" title="3.1 可重定位目标文件（.o文件）"></a>3.1 可重定位目标文件（.o文件）</h3><p>​            包含与其他可重定位目标文件相结合的代码和数据，以形成可执行的目标文件。每一个.c文件生成一个.o文件。</p>
+<h3 id="3-2-可执行目标文件（-out文件）"><a href="#3-2-可执行目标文件（-out文件）" class="headerlink" title="3.2 可执行目标文件（.out文件）"></a>3.2 可执行目标文件（.out文件）</h3><p>​            包含可以直接复制到内存并执行的代码和数据.</p>
+<h3 id="3-3-共享目标文件（-so文件）"><a href="#3-3-共享目标文件（-so文件）" class="headerlink" title="3.3 共享目标文件（.so文件）"></a>3.3 共享目标文件（.so文件）</h3><p>​            特殊类型的可重定位目标文件，在其他的加载时或运行时，它可以<strong>被动态加载到内存，并被动态链接</strong>。</p>
+<p>​            windows中被称为dll文件            </p>
+<h2 id="4-静态链接的任务"><a href="#4-静态链接的任务" class="headerlink" title="4.静态链接的任务"></a>4.静态链接的任务</h2><h3 id="4-1-符号解析"><a href="#4-1-符号解析" class="headerlink" title="4.1 符号解析"></a>4.1 符号解析</h3><p>​            符号：函数、全局变量、静态变量（局部非静态变量不算）</p>
+<p>​            将符号引用和符号定义进行关联。</p>
+<h3 id="4-2-重定位"><a href="#4-2-重定位" class="headerlink" title="4.2 重定位"></a>4.2 重定位</h3><p>​            将.o文件中符号的相对内存位置（0开始）变成内存中的绝对位置。</p>
+<h2 id="5-可重定位目标文件"><a href="#5-可重定位目标文件" class="headerlink" title="5.可重定位目标文件"></a>5.可重定位目标文件</h2><h3 id="5-1-定义"><a href="#5-1-定义" class="headerlink" title="5.1 定义"></a>5.1 定义</h3><p>​    ELF全称为”Executable and Linkable Format”,用于可执行文件、目标文件、共享库和核心转储的标准文件格式。</p>
+<p>​    <img src="/2020/08/06/csapp-chapter7/2.png"></p>
+<h3 id="5-2-组成（部分）"><a href="#5-2-组成（部分）" class="headerlink" title="5.2 组成（部分）"></a>5.2 组成（部分）</h3><ul>
+<li>Elf 头<ul>
+<li>字大小、字节顺序、文件类型(.o，exec，.so)，机器类型，等等</li>
+</ul>
+</li>
+<li>段头表/程序头表<ul>
+<li>页面大小，虚拟地址内存段(节)，段大小</li>
+</ul>
+</li>
+<li>.text 节（代码）<ul>
+<li>已编译程序的机器代码</li>
+</ul>
+</li>
+<li>.rodata 节（只读数据）<ul>
+<li>只读数据 : 跳转表, printf语句中的格式串等</li>
+</ul>
+</li>
+<li>.data 节 （数据/可读写）<ul>
+<li>已初始化全局变量和静态变量。<strong>（局部变量保存在栈中，不出现在.data中也不出现在.bss中）</strong></li>
+</ul>
+</li>
+<li>.bss 节 （未初始化全局变量）<ul>
+<li>未初始化的全局变量和静态变量（static），运行时自动赋值为0</li>
+<li>有节头，在目标文件中不占用空间</li>
+</ul>
+</li>
+<li>.symtab 节（符号表）<ul>
+<li>函数和全局变量信息（不包含局部变量）</li>
+</ul>
+</li>
+<li>.rel.text 节（可重定位代码）<ul>
+<li>.text 节的可重定位信息</li>
+<li>在可执行文件中需要修改的指令地址</li>
+<li>需修改的指令.</li>
+</ul>
+</li>
+<li>.rel.data 节（可重定位数据）<ul>
+<li>.data 节的可重定位信息</li>
+<li>在合并后的可执行文件中需要修改的指针数据的地址</li>
+</ul>
+</li>
+<li>.debug 节（调试）<ul>
+<li>为符号调试的信息 (gcc -g)</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-ELF文件查看工具"><a href="#5-3-ELF文件查看工具" class="headerlink" title="5.3 ELF文件查看工具"></a>5.3 ELF文件查看工具</h3><ul>
+<li>objdump</li>
+<li>readelf</li>
+</ul>
+<h2 id="6-符号表"><a href="#6-符号表" class="headerlink" title="6. 符号表"></a>6. 符号表</h2><p>​    <strong>每一个模块都会各自生成一张符号表。</strong></p>
+<h3 id="6-0-C中的static关键字"><a href="#6-0-C中的static关键字" class="headerlink" title="6.0 C中的static关键字"></a>6.0 C中的static关键字</h3><p>​        static关键字用于将变量和函数声明<strong>隐藏于模块内部</strong>。任何带有static属性声明的全局变量或者函数都是模块私有的（其它的模块无法访问），任何不带static属性声明的全局变量或者函数其它模块可以访问或调用。</p>
+<p>​        尽可能使用static来保护变量和函数是一个好习惯。</p>
+<h3 id="6-1-全局符号"><a href="#6-1-全局符号" class="headerlink" title="6.1 全局符号"></a>6.1 全局符号</h3><p>​        由模块定义的，可以被其它模块引用的符号（比如非static函数、非静态全局变量）</p>
+<h3 id="6-2-外部符号"><a href="#6-2-外部符号" class="headerlink" title="6.2 外部符号"></a>6.2 外部符号</h3><p>​        由当前模块引用其它模块的符号（可能是全局函数，也可能是非静态全局变量）</p>
+<h3 id="6-3-局部符号"><a href="#6-3-局部符号" class="headerlink" title="6.3 局部符号"></a>6.3 局部符号</h3><p>​        定义的静态全局变量、静态函数，在模块内部都可见，但模块外不可见</p>
+<p><img src="/2020/08/06/csapp-chapter7/4.png"></p>
+<h2 id="7-符号解析"><a href="#7-符号解析" class="headerlink" title="7. 符号解析"></a>7. 符号解析</h2><p>​    这里主要探讨的问题是在重名的情况下，链接器选择符号的规则。</p>
+<h3 id="7-1-强符号和弱符号"><a href="#7-1-强符号和弱符号" class="headerlink" title="7.1 强符号和弱符号"></a>7.1 强符号和弱符号</h3><p>​        强符号：已初始化的全局变量、非静态函数</p>
+<p>​        弱符号：未初始化的全局变量</p>
+<h3 id="7-2-解析规则"><a href="#7-2-解析规则" class="headerlink" title="7.2 解析规则"></a>7.2 解析规则</h3><p>​        1.有多个同名的强符号则报错</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* foo1.c */</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/* foo2.c */</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* foo1.c */</span>
+<span class="token keyword">int</span> x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/* foo2.c */</span>
+<span class="token keyword">int</span> x<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    2.有一个强符号和多个弱符号，选择强符号</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* foo1.c */</span>
+<span class="token keyword">int</span> x<span class="token operator">=</span><span class="token number">15213</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x=%d\n"</span><span class="token punctuation">,</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/* foo2.c */</span>
+<span class="token keyword">int</span> x<span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    x<span class="token operator">=</span><span class="token number">15212</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    3.如果都是弱符号，随便选一个</p>
+<h3 id="7-3-注意事项"><a href="#7-3-注意事项" class="headerlink" title="7.3 注意事项"></a>7.3 注意事项</h3><p>​    多模块编程时，尽量使用static变量，避免使用全局变量</p>
+<p>​    当引用一个外部全局符号时，请使用extern关键字（提示编译器在模块外寻找定义）</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/****max.c****/</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token comment" spellcheck="true">/*外部变量声明*/</span>
+<span class="token keyword">extern</span> <span class="token keyword">int</span> g_X <span class="token punctuation">;</span>
+<span class="token keyword">extern</span> <span class="token keyword">int</span> g_Y <span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>g_X <span class="token operator">></span> g_Y <span class="token operator">?</span> g_X <span class="token punctuation">:</span> g_Y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+
+<span class="token comment" spellcheck="true">/***main.c****/</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token comment" spellcheck="true">/*定义两个全局变量*/</span>
+<span class="token keyword">int</span> g_X<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> g_Y<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> result<span class="token punctuation">;</span>
+    result <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"the max value is %d\n"</span><span class="token punctuation">,</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="8-静态库"><a href="#8-静态库" class="headerlink" title="8. 静态库"></a>8. 静态库</h2><p>​    静态库（.a文件）通俗地说就是把若干个.o文件打包，在链接的时候会方便很多。</p>
+<p>​    打包可以使用linux下的ar工具。</p>
+<p>​    比如说libc.a中包含了我们常用函数（printf、scanf、atoi等等）的目标文件，libc.a在每一个C程序编译时都会被调用。libm.a包含了常见的数学函数（sqrt、sin、cos等等）。</p>
+<h3 id="8-1-静态库的引用顺序"><a href="#8-1-静态库的引用顺序" class="headerlink" title="8.1 静态库的引用顺序"></a>8.1 静态库的引用顺序</h3><p>​    <strong>规则：引用必须在定义之前。</strong></p>
+<p>​    比如说foo.c引用了libx.a和libz.a中的函数，而这两个库又调用了liby.a中的函数，则libx.a和libz.a必须在liby.a之前！</p>
+<pre class="line-numbers language-bash"><code class="language-bash">gcc foo.c libx.a libz.a liby.a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    如果是这样就会出错：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">gcc -static ./libvector.a main2.c <span class="token comment" spellcheck="true">#main2.c引用了libvector.a中的函数</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    如果出现循环引用，比如foo.c调用libx.a中的函数，而libx.a调用liby.a中的函数，而liby.a又调用了libx.a中的函数，则libx.a必须在链接时重复出现：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">gcc foo.c libx.a liby.a libx.a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="/2020/08/06/csapp-chapter7/5.png"></p>
+<h2 id="9-重定位"><a href="#9-重定位" class="headerlink" title="9. 重定位"></a>9. 重定位</h2><p><img src="/2020/08/06/csapp-chapter7/6.png"></p>
+<h3 id="9-1-重定位条目"><a href="#9-1-重定位条目" class="headerlink" title="9.1 重定位条目"></a>9.1 重定位条目</h3><p>​    重定位条目本质是一种数据结构，如下图所示：</p>
+<p><img src="/2020/08/06/csapp-chapter7/7.png"></p>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>offset</td>
+<td>需要被修改的引用的节偏移</td>
+</tr>
+<tr>
+<td>type</td>
+<td>绝对地址引用/相对地址引用</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>被修改引用指向的符号</td>
+</tr>
+<tr>
+<td>addend</td>
+<td>有符号常数，表示偏移</td>
+</tr>
+</tbody></table>
+<p><img src="/2020/08/06/csapp-chapter7/8.png"></p>
+<h3 id="9-2-相对地址引用"><a href="#9-2-相对地址引用" class="headerlink" title="9.2 相对地址引用"></a>9.2 相对地址引用</h3><p><img src="/2020/08/06/csapp-chapter7/9.png"></p>
+<h3 id="9-3-绝对地址引用"><a href="#9-3-绝对地址引用" class="headerlink" title="9.3 绝对地址引用"></a>9.3 绝对地址引用</h3><p><img src="/2020/08/06/csapp-chapter7/10.png"></p>
+<h2 id="10-动态链接共享库"><a href="#10-动态链接共享库" class="headerlink" title="10. 动态链接共享库"></a>10. 动态链接共享库</h2><h3 id="10-1-动态链接的原理"><a href="#10-1-动态链接的原理" class="headerlink" title="10.1 动态链接的原理"></a>10.1 动态链接的原理</h3><p>​    动态链接解决了静态链接内存资源浪费的缺陷（比如说printf和scanf函数，在静态链接下，这些函数的代码将会被复制到每个运行进程的文本段中，如果一台计算机上运行上百个进程，无疑是一种对内存的浪费。）</p>
+<p>​    共享库是一个目标模块（Linux下为.so文件，Windows下为.dll文件），它在内存和磁盘中只有一个备份，在运行或加载时，可以加载到任意的内存地址，并和一个在内存中的程序链接起来，这个过程被称为动态链接。</p>
+<p><img src="/2020/08/06/csapp-chapter7/11.png"></p>
+<h3 id="10-2-库打桩机制"><a href="#10-2-库打桩机制" class="headerlink" title="10.2 库打桩机制"></a>10.2 库打桩机制</h3><p>​    是Linux链接器支持的一个很强大的技术。它允许你对共享库的代码进行截取，执行自己的代码（“偷梁换柱“）。比如说由于调试需要，你希望原先代码中的malloc函数更换为你自己写好的malloc函数，那这个时候就可以使用库的打桩机制。</p>
+<p>​    打桩有三种机制，分别是编译时打桩、链接时打桩、运行时打桩。</p>
+<h4 id="10-2-1-编译时打桩"><a href="#10-2-1-编译时打桩" class="headerlink" title="10.2.1 编译时打桩"></a>10.2.1 编译时打桩</h4><p>​    这个最容易理解，相当于在源代码上进行替换，比如用宏定义把malloc替换成mymalloc（自己的实现）。</p>
+<h4 id="10-2-2-链接时打桩"><a href="#10-2-2-链接时打桩" class="headerlink" title="10.2.2 链接时打桩"></a>10.2.2 链接时打桩</h4><p>​    这里用到了链接器–wrap选项，–wrap f表示告诉链接器，把对f的符号引用解析成__wrap_f（前缀是两个下划线），还要把对符号__real_f的引用解析为f。</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* main.c */</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h></span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token operator">*</span>p<span class="token operator">=</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* malloc.h */</span>
+<span class="token macro property">#<span class="token directive keyword">ifdef</span> MYMOCK </span><span class="token comment" spellcheck="true">//只有MYMOCK编译选项是，这段代码才会编译进去</span>
+    <span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+    <span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;stdlib.h></span></span>
+    <span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">__real_malloc</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//注意声明</span>
+    <span class="token comment" spellcheck="true">/*打桩函数*/</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">__wrap_malloc</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span> 
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token operator">*</span>ptr <span class="token operator">=</span> <span class="token function">__real_malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//最后会被解析成malloc</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"ptr is %p\n"</span><span class="token punctuation">,</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> ptr<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">$ gcc -DMYMOCK mymalloc.c
+$ gcc -c main.c
+$ gcc -Wl,--wrap,malloc -o main main.o mymalloc.o
+$ ./main
+ptr is 0x95f010<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    我们特别关注mymalloc.c中的代码，利用链接器的打桩机制，最后在main函数中调用malloc，将会去调用__wrap_malloc，而__real_malloc将会被解析成真正的malloc，从而达到“偷梁换柱”的效果。</p>
+<h4 id="10-2-3-运行时打桩"><a href="#10-2-3-运行时打桩" class="headerlink" title="10.2.3 运行时打桩"></a>10.2.3 运行时打桩</h4><p>​    前面两种打桩方式，一种需要访问源代码，另外一种至少要访问可重定位文件。</p>
+<p>​    运行时打桩没有这么多要求。运行时打桩可以通过设置<code>LD_PRELOAD</code>环境变量，达到在你加载一个动态库或者解析一个符号时，先从<code>LD_PRELOAD</code>指定的目录下的库去寻找需要的符号，然后再去其他库中寻找。</p>
+<p>​    修改<code>mymalloc.c</code></p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">ifdef</span> RUNTIME</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> _GNU_SOURCE</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;dlfcn.h></span></span>
+
+<span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token operator">*</span>mallocp<span class="token punctuation">)</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>error<span class="token punctuation">;</span>
+
+    mallocp <span class="token operator">=</span> <span class="token function">dlsym</span><span class="token punctuation">(</span>RTLD_NEXT<span class="token punctuation">,</span> <span class="token string">"malloc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>error <span class="token operator">=</span> <span class="token function">dlerror</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token function">fputs</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token constant">stderr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>ptr <span class="token operator">=</span> <span class="token function">mallocp</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc(%d) = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>size<span class="token punctuation">,</span> ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> ptr<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">free</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>freep<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>error<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ptr<span class="token punctuation">)</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+    freep <span class="token operator">=</span> <span class="token function">dlsym</span><span class="token punctuation">(</span>RTLD_NEXT<span class="token punctuation">,</span> <span class="token string">"free"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>error <span class="token operator">=</span> <span class="token function">dlerror</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token function">fputs</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token constant">stderr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token function">freep</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"free(%p)\n"</span><span class="token punctuation">,</span> ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译指令</p>
+<pre class="line-numbers language-bash"><code class="language-bash">gcc –DRUNTIME –shared –fpic –o mymalloc.so mymalloc.c –ldl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* main.c */</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译指令</p>
+<pre class="line-numbers language-bash"><code class="language-bash">gcc –o intr int.c
+LD_PRELOAD<span class="token operator">=</span>”./mymalloc.so”
+./intr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>然而会报错（Core dump segmentation fault）</strong></p>
+<p>这是因为我们的malloc函数中调用了printf函数，printf函数又调用了我们的malloc函数，malloc函数又会调用printf函数……这产生了一个调用死循环，栈就溢出了。</p>
+<p>首先要尽量避免在自己写的malloc函数中调用其他标准库函数，毕竟不清楚标准库函数的内部实现机制。但是为了输出一些信息，printf函数还是要保留的，那么怎么办呢？首先考虑单线程的情况，如果在我们自己写的malloc函数中发生了循环调用自己malloc的情况，唯一的可能就是printf调用了malloc。我们可以设置一个静态计数变量count，每次完成执行malloc函数后将count清零，每次进入malloc函数后count自增1，如果count=1，说明现在调用栈上只有对自定义malloc函数的一次调用，这时可以调用printf输出信息；如果count=2，说明此时调用栈上对malloc函数发生了第二次调用，即一个malloc函数还没有执行完，就又进行了一次malloc函数调用，我们认为这个问题出在printf上，此时我们就不再调用printf了。</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">malloc</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> __thread <span class="token keyword">int</span> print_times <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    print_times<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token operator">*</span>mallocp<span class="token punctuation">)</span><span class="token punctuation">(</span>size_t size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>error<span class="token punctuation">;</span>
+
+    mallocp <span class="token operator">=</span> <span class="token function">dlsym</span><span class="token punctuation">(</span>RTLD_NEXT<span class="token punctuation">,</span> <span class="token string">"malloc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>error <span class="token operator">=</span> <span class="token function">dlerror</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token function">fputs</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token constant">stderr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>ptr <span class="token operator">=</span> <span class="token function">mallocp</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>print_times <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc(%d) = %p\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>size<span class="token punctuation">,</span> ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    print_times <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> ptr<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后程序可以正常执行。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">YuHong Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://Yuki-Asuuna.github.io/2020/08/06/csapp-chapter7/">http://Yuki-Asuuna.github.io/2020/08/06/csapp-chapter7/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">YuHong Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2020-08-06T11-05-35',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="数据库系统概念第一章——引言笔记">
+                        
+                        <span class="card-title">数据库系统概念第一章——引言笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第一章 引言1. 文件系统的弊端&amp;数据库系统的目标1.1 数据的冗余与不一致​        冗余性指的是相同的数据在不同的地方重复存储。
+​        不一致性指的是同一数据的副本不一致。
+1.2 数据访问困难​       
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            YuHong Sun
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/database/">
+                        <span class="chip bg-color">database</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                        <span class="chip bg-color">数据库系统概念</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/04/rbtree/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="红黑树（rbtree）笔记">
+                        
+                        <span class="card-title">红黑树（rbtree）笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            红黑树（rbtree）笔记强烈推荐：数据结构可视化网站​    https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
+​    上述网站将rbtree的数据结构以动画的方式
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            YuHong Sun
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/data-structure/">
+                        <span class="chip bg-color">data structure</span>
+                    </a>
+                    
+                    <a href="/tags/rbtree/">
+                        <span class="chip bg-color">rbtree</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020# 年份</span>
+            <a href="/about" target="_blank">YuHong Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Yuki-Asuuna" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:10174503104@stu.ecnu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=501263359" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 501263359" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/xi-lian-chuan-lu-xia" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/xi-lian-chuan-lu-xia" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+
+</html>

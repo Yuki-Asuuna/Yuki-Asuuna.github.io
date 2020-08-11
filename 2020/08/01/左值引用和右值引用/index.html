@@ -1,0 +1,1249 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="浅谈C++中的左值和右值引用, SYH的博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>浅谈C++中的左值和右值引用 | SYH的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.0.2"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">SYH的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">SYH的博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">浅谈C++中的左值和右值引用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/c/">
+                                <span class="chip bg-color">c++</span>
+                            </a>
+                        
+                            <a href="/tags/lvalue/">
+                                <span class="chip bg-color">lvalue</span>
+                            </a>
+                        
+                            <a href="/tags/rvalue/">
+                                <span class="chip bg-color">rvalue</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>C++中定义了<strong>引用类型(reference type)**，存在左值引用(lvalue reference)。而在C++11中，新增了</strong>右值引用(rvalue reference)**这一概念， 在此一并讨论。</p>
+</blockquote>
+<h1 id="1-左值and右值"><a href="#1-左值and右值" class="headerlink" title="1.左值and右值"></a>1.左值and右值</h1><p>首先，我们讨论左值和右值两个概念。<br><strong>左值(lvalue)**：一个标识非临时性对象的表达式。通常来说，可以将程序中所有带名字的变量看做左值。简化定义为：</strong>占用了一定内存，且拥有可辨认地址的对象**。<br>**右值(rvalue)**：相对的，右值标识是临时性对象的表达式，这类对象没有指定的变量名，都是临时计算生成的。<br>考虑以下代码：</p>
+<pre class="line-numbers language-C++"><code class="language-C++">Copyvector<string> arr(3);
+const int x = 2;
+int y;
+int z = x + y;
+string str = "foo";
+vector<string> *ptr = &arr;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在上述代码中，<code>arr, str, y, z</code>等都是左值，<code>x</code>也是一个左值，且他不是一个可修改的左值；而类似于<code>2</code>, <code>x+y</code>这类临时(没有专属变量名)的值则是右值。</p>
+<h1 id="2-引用"><a href="#2-引用" class="headerlink" title="2.引用"></a>2.引用</h1><p>我们可以这样理解引用：一个引用是它所引用对象的同义词，是其另一个变量名。<br>看这样一段代码：</p>
+<pre class="line-numbers language-C++"><code class="language-C++">#inclulde <stdio.h>
+int main()
+&#123;
+    int x = 5;
+    int & y = x;
+    printf("引用y = %d\n", y);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：<br><img src="/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/1479140-20190314145206522-1041628917.png" alt="img"></p>
+<p><strong>(1)左值引用</strong><br>左值引用的声明是通过在某个类型后放置一个符号&amp;来进行的。前文代码中的<code>int &amp; y = x;</code>便是一个左值引用。<br>需要注意的是，在定义左值引用时，=右边的要求是一个可修改的左值。因此下面几种左值引用都是错误的：</p>
+<pre class="line-numbers language-C++"><code class="language-C++">#include <stdio.h>
+
+int main()
+&#123;
+    const int x = 5;
+    int y = 1;
+    int z = 1;
+    int & tmp1 = x;     // ERROR:x不是一个可修改的左值
+    int & tmp2 = 5;     // ERROR:5是一个右值
+    int & tmp3 = y + z; // ERROR:y+z是一个右值
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译运行，报错如下：<br><img src="/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/1479140-20190314150247699-1524865667.png" alt="img"></p>
+<p><strong>(2)右值引用</strong><br>类似于左值引用，右值引用便是对右值的引用，它是通过两个<code>&amp;&amp;</code>来声明的。</p>
+<pre class="line-numbers language-C++"><code class="language-C++">Copy#include <stdio.h>
+
+int main()
+&#123;
+    int && x = 5;
+    printf("x = %d\n", x);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：<br><img src="/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/1479140-20190314151305829-580435550.png" alt="img"></p>
+<blockquote>
+<p><strong>引用和指针的区别</strong><br>我们知道，指针是在内存中存放地址的一种变量，cpu能够直接通过而变量名访问唯一对应的内存单元，且每个内存单元的<strong>地址都是唯一</strong>的。<br>而变量名和引用，都可以看做内存的一个标签或是标识符，计算机通过是否符合标识符判断是否为目标内存，而<strong>一个内存可以有多个标识符</strong></p>
+</blockquote>
+<h1 id="3-左值引用的用途"><a href="#3-左值引用的用途" class="headerlink" title="3.左值引用的用途"></a>3.左值引用的用途</h1><p>因为目前右值引用用途不大，故此处仅列举较为常见的左值引用用途<br>**(1)作为复杂名称变量的别名**<br>我们可以写出类似如下的语句：</p>
+<pre class="line-numbers language-C++"><code class="language-C++">Copyauto & whichList = theList[myHash(x, theList.size())];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到，我们用简短的<code>whichList</code>代替了其原本复杂的名称，这能够简化我们的代码书写。<br>**(2)用于rangeFor循环**<br>设想我们希望通过<code>rangeFor</code>循环使一个<code>vector</code>对象所有值都增加<code>1</code>，下面的<code>rangeFor</code>循环是做不到的、</p>
+<pre><code>Copyfor (auto x : arr)   // x仅相当于每个元素的拷贝
+    ++x;</code></pre>
+<p>但我们可以通过使用引用达到这一目的</p>
+<pre class="line-numbers language-C++"><code class="language-C++">Copyfor (auto & x : arr)
+    ++x;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>(3)避免复制大的对象</strong><br>假定有一个<code>findMax</code>函数，它返回一个<code>vector</code>中最大的元素。若给定<code>vector</code>存储的是某些大的对象时，下述代码中的<code>x</code>拷贝返回的最大值到<code>x</code>的内存中：</p>
+<pre class="line-numbers language-C++"><code class="language-C++">Copyauto x = finaMax(vector);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在大型的项目中这显然会增大程序的开销，这时我们可以通过引用来减小这类开销</p>
+<pre class="line-numbers language-C++"><code class="language-C++">Copyauto & x = findMax(vector);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>类似的，我们在处理函数返回值的时候也可以使用传引用返回。但是要注意，当返回的是类中私有属性时，传回的引用会导致外界能够对其修改。<br>**(4)参与函数中的参数传递**<br>在C和C++的函数中，<code>addSelf(int x)</code>这类函数对直接传入的参数进行修改并不会改变原有参数的值。而有时我们希望能够实现类似<code>swap(int a, int b)</code>这类能够修改原参数的函数时，我们可以通过传指针或传引用实现。<br><code>swap</code>函数的实现是一个很好的例子</p>
+<pre class="line-numbers language-C++"><code class="language-C++">#include <stdio.h>
+
+void swap_non(int, int);    // 直接传入参数 
+void swap_p(int *, int *);  // 传入指针
+void swap_r(int &, int &);  // 传入引用
+
+int main()
+&#123;
+    int a = 1;
+    int b = 2;
+    printf("直接传入参数时:\n");
+    swap_non(a, b);
+    printf("a = %d, b = %d\n", a, b);
+    printf("传入指针时:\n");
+    swap_p(&a, &b);
+    printf("a = %d, b = %d\n", a, b);
+    printf("传入引用时:\n");
+    swap_r(a, b);
+    printf("a = %d, b = %d\n", a, b);
+    return 0;
+&#125;
+
+void swap_non(int a, int b)
+&#123;
+    int temp = a;
+    a = b;
+    b = temp;
+&#125;
+
+void swap_p(int * a, int * b)
+&#123;
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+&#125;
+
+void swap_r(int & a, int & b)
+&#123;
+    int temp = a;
+    a = b;
+    b = temp;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果如下：<br><img src="/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/1479140-20190314154839299-1163030150.png" alt="img"></p>
+<p>可以看到，只有在传入指针和传入引用时变量才真正交换。</p>
+<blockquote>
+<p>对<strong>直接传入参数</strong>和<strong>传入指针</strong>仍不理解的可以看这篇<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Bylight/p/10451598.html">博客</a>，在此不再描述。</p>
+</blockquote>
+<h1 id="4-右值引用的用途"><a href="#4-右值引用的用途" class="headerlink" title="4.右值引用的用途"></a>4.右值引用的用途</h1><p>右值引用帮助我们实现以下两个技术：移动语义和完美转发。</p>
+<ul>
+<li><strong>移动语义</strong>：将内存的所有权从一个对象转移到另外一个对象，高效的移动用来替换效率低下的复制，对象的移动语义需要实现移动构造函数（move constructor）和移动赋值运算符（move assignment operator）。</li>
+<li><strong>完美转发</strong>：定义一个函数模板，该函数模板可以接收任意类型参数，然后将参数转发给其它目标函数，且保证目标函数接受的参数其类型与传递给模板函数的类型相同。</li>
+</ul>
+<h2 id="1）移动语义"><a href="#1）移动语义" class="headerlink" title="1）移动语义"></a>1）移动语义</h2><p>​    首先，考虑下面swap()的实现</p>
+<pre class="line-numbers language-c++"><code class="language-c++">template <class T>
+void swap(T& a,T& b)&#123;
+    const T tmp=a;
+    a=b;
+    b=tmp;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    初始化tmp之后，我们拥有了a的值的两个副本。为tmp赋值后，我们就有了b的值的两个副本。为b赋值后，我们有了tmp的值（即a的原值）的两个副本，最后我们销毁了tmp。</p>
+<p>​    这听上去做了非常多的工作，实际上确实做了非常多的工作。</p>
+<p>​    假如我们用这个swap函数去交换一对3000*3000的double类型矩阵，那么开销就会非常大。如果我们只有拷贝操作，就必须要对大量非标准函数和数据结构做类似的工作，因此便引入了“移动语义“。</p>
+<p>​    一个比较生动的例子如下：</p>
+<blockquote>
+<p>问题一：如何将大象放入冰箱？<br>答案是众所周知的。首先你需要有一台特殊的冰箱，这台冰箱是为了装下大象而制造的。你打开冰箱门，将大象放入冰箱，然后关上冰箱门。</p>
+<p>问题二：如何将大象从一台冰箱转移到另一台冰箱？<br>普通解答：打开冰箱门，取出大象，关上冰箱门，打开另一台冰箱门，放进大象，关上冰箱门。<br>2B解答：在第二个冰箱中启动量子复制系统，克隆一只完全相同的大象，然后启动高能激光将第一个冰箱内的大象气化消失。<br>等等，这个2B解答听起来很耳熟，这不就是C++中要<strong>移动</strong>一个对象时所做的事情吗？</p>
+<p>“移动”，这是一个三岁小孩都明白的概念。将大象（资源）从一台冰箱（对象）<strong>移动</strong>到另一台冰箱，这个行为是如此自然，没有任何人会采用先复制大象，再销毁大象这样匪夷所思的方法。C++通过拷贝构造函数和拷贝赋值操作符为类设计了<strong>拷贝/复制</strong>的概念，但为了实现对资源的<strong>移动</strong>操作，调用者必须使用先复制、再析构的方式。否则，就需要自己实现移动资源的接口。</p>
+<p>作者：Tinro<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22111546/answer/30801982">https://www.zhihu.com/question/22111546/answer/30801982</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+</blockquote>
+<p>​    在swap这个例子中，我们想要做的只是把变量的所有权转交（即移交对象的指针直接指向原数据首地址即可），并不需要深拷贝（即向内存去申请额外的内存空间，然后再将指针指向的数据一个一个复制到新申请的空间中），而在老版的C++中，我们只能通过拷贝再析构这样的过程去移动对象。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">template <class T>
+class Matrix&#123;
+    std::array <int,2> dim;
+    T * elem;
+    Matrix(const Matrix &);    //拷贝构造函数
+    Matrix(Matrix &&);    //移动构造函数
+    Matrix & operator =(const Matrix &);//拷贝赋值运算符
+    Matrix & operator =(Matrix &&);//移动赋值运算符
+    ~Matrix();//析构函数
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    <strong>通过右值，我们就可以将左值的处理和右值的处理分离。</strong></p>
+<p>​    我们可以为Matrix定义移动构造函数，简单地接受其源对象的表示，并将源对象设置为空（销毁代价低）。</p>
+<p>​    再进一步，C++中右值可以被赋值给左值或者绑定到引用。类的右值是一个临时对象，如果没有被绑定到引用，在表达式结束时就会被废弃。<strong>于是我们可以在右值被废弃之前，移走它的资源进行废物利用，从而避免无意义的复制。</strong>被移走资源的右值在废弃时已经成为空壳，析构的开销也会降低。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">template <class T>
+Matrix <T>:: Matrix (Matrix &&a)
+    :dim&#123;a.dim&#125;,elem&#123;a.elem&#125;
+&#123;
+    a.dim=&#123;0,0&#125;;
+    a.elem=nullptr;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    例如，如果我们使用STL中的vector中的移动赋值运算，在移动之后，原vector中的内容会被清空。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">vector <int> a(10);//10 个 0
+vector <int> b;
+b=move(a);
+cout<<a.size()<<endl;//输出：0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    在标准模板库中，只要使用了move函数，对象都会将自身内容清空，保证程序员不能再使用原对象。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">std::unique_ptr<int> u1(new int);
+std::unique_ptr<int> u2(std::move(u1));
+cout << "u1: " << (u1 ? "not null" : "null") << endl; //输出为 "u1: null"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>​    使用移动会使得代码更加高效，特别是移动操作通常不会抛出异常，因为不会向内存去申请额外的空间，安全性也因此大大提高。</p>
+<h2 id="2）完美转发"><a href="#2）完美转发" class="headerlink" title="2）完美转发"></a>2）完美转发</h2><p>​    完美转发即保持左值还是左值，右值还是右值。</p>
+<p>​    这一需求在C++11中被<code>std::forward</code>所实现。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <iostream>
+
+template<typename T>
+void print(T & t)&#123;
+    std::cout << "左值" << std::endl;
+&#125;
+
+template<typename T>
+void print(T && t)&#123;
+    std::cout << "右值" << std::endl;
+&#125;
+
+template<typename T>
+void testForward(T && v)&#123;
+    print(v);
+    print(std::forward<T>(v));
+    print(std::move(v));
+&#125;
+
+int main(int argc, char * argv[])
+&#123;
+    testForward(1);
+
+    std::cout << "======================" << std::endl;
+
+    int x = 1;
+    testFoward(x);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    按照常规的思维，对于<code>main</code>里的第一个<code>testForward(1)</code>期望输出应当为：</p>
+<pre><code>右值 //diff
+右值
+右值</code></pre>
+<p>​    然而实际的结果为：</p>
+<pre><code>左值 //diff
+右值
+左值</code></pre>
+<p>​    你会发现传入的参数<code>1</code>被认为是左值，这就很奇怪了，明明<code>main</code>里传的参数是个右值，怎么到这里就变成左值了呢？</p>
+<p>​    实际上这是因为在经过函数传参后，1变成了左值（因为在内存中分配了空间）。</p>
+<p>​    同时要注意一点，这里的<code>T &amp;&amp; v</code>被称为<code>通用引用类型</code>，<strong>它即可接收左值，也可以接收右值。</strong>并不是指v这个参数是一个右值引用。</p>
+<p>​    而<code>1</code>由于被分配了空间，所以原本在<code>main</code>中的右值却在<code>testForward</code>中被认为是左值，这是不能接受的。因而我们就需要“完美转发“去解决这个问题。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">YuHong Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://Yuki-Asuuna.github.io/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/">http://Yuki-Asuuna.github.io/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">YuHong Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/c/">
+                                    <span class="chip bg-color">c++</span>
+                                </a>
+                            
+                                <a href="/tags/lvalue/">
+                                    <span class="chip bg-color">lvalue</span>
+                                </a>
+                            
+                                <a href="/tags/rvalue/">
+                                    <span class="chip bg-color">rvalue</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2020-08-01T18-41-47',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/08/03/virtual-memory/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="《CSAPP》第九章虚拟内存笔记">
+                        
+                        <span class="card-title">《CSAPP》第九章虚拟内存笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            深入了解虚拟内存（Virtual Memory）​    我们应该知道物理内存（Physical Memory）指的是硬件上的内存，即 RAM。它通常指的是插在主板上的内存条，给进程提供临时数据存储的设备。因为 CPU 可以直接从物理内存中
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            YuHong Sun
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/csapp/">
+                        <span class="chip bg-color">csapp</span>
+                    </a>
+                    
+                    <a href="/tags/virutal-memory/">
+                        <span class="chip bg-color">virutal memory</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/01/Cpp%E4%B8%AD%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%88cast%EF%BC%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="C++中的四种强制类型转换（cast）">
+                        
+                        <span class="card-title">C++中的四种强制类型转换（cast）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            C++中的四种强制类型转换（cast）1.C中的强制类型转换​    在C语言中，如果要将一个变量的类型强制转化为另一种类型，可以使用以下形式：
+
+(new_type) var
+
+​    在C++中拓展了一种新的写法，又被称为函数式写法（
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            YuHong Sun
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
+                        <span class="chip bg-color">强制类型转换</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020# 年份</span>
+            <a href="/about" target="_blank">YuHong Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Yuki-Asuuna" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:10174503104@stu.ecnu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=501263359" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 501263359" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/xi-lian-chuan-lu-xia" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/xi-lian-chuan-lu-xia" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+
+</html>
