@@ -458,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-08
+                    2020-08-13
                 </div>
                 
 
@@ -506,7 +506,7 @@
 <p>​        <code>instructor</code>在数据库底层被描述成一个存储块，里面包含ID，name，dept_name等字段，同时还有填充字节等等。</p>
 <h3 id="2-2-逻辑模式"><a href="#2-2-逻辑模式" class="headerlink" title="2.2 逻辑模式"></a>2.2 逻辑模式</h3><p>​        逻辑模式（logical level）又被称为“概念模式”/“模式”。它描述了数据库中存储了什么数据、数据与数据之间的关系（外键约束等）。比如说我们要设计一个大学的数据库，这个数据库中就应当包含学生、课程等信息。</p>
 <h3 id="2-3-视图层"><a href="#2-3-视图层" class="headerlink" title="2.3 视图层"></a>2.3 视图层</h3><p>​        视图层（viewl level）又被称为“用户模式”/“外模式”/“子模式”。它向用户展示了数据库的一小部分，所以一个数据库系统可以对应多个视图。比如说我们在sql中查询某位学生的信息，这样的查询请求可以被同时接受处理，每个用户看到的都是数据库中的一小部分。</p>
-<h3 id="2-4-三级模式两级映射"><a href="#2-4-三级模式两级映射" class="headerlink" title="2.4 三级模式两级映射"></a>2.4 三级模式两级映射</h3><p>​        <img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第一章笔记\1.jpg"></p>
+<h3 id="2-4-三级模式两级映射"><a href="#2-4-三级模式两级映射" class="headerlink" title="2.4 三级模式两级映射"></a>2.4 三级模式两级映射</h3><p>​        <img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/1.jpg"></p>
 <h2 id="3-数据库语言"><a href="#3-数据库语言" class="headerlink" title="3. 数据库语言"></a>3. 数据库语言</h2><h3 id="3-1-数据定义语言（DDL）"><a href="#3-1-数据定义语言（DDL）" class="headerlink" title="3.1 数据定义语言（DDL）"></a>3.1 数据定义语言（DDL）</h3><p>​        用于描述数据库的模式，它主要涉及到以下4个方面：</p>
 <ol>
 <li>定义域约束：描述属性的取值范围。（比如性别属性只能取M或F）</li>
@@ -548,13 +548,13 @@
 <li><p>查询执行引擎：执行由编译器生成的低级指令。</p>
 </li>
 </ul>
-<p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第一章笔记\4.png"></p>
+<p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/4.png"></p>
 <h2 id="6-事物管理"><a href="#6-事物管理" class="headerlink" title="6. 事物管理"></a>6. 事物管理</h2><h3 id="6-1-事物的ACID属性"><a href="#6-1-事物的ACID属性" class="headerlink" title="6.1 事物的ACID属性"></a>6.1 事物的ACID属性</h3><p>​        ACID属性分别表示的是：原子性、一致性、完整性、持久性</p>
 <h3 id="6-2-恢复管理器"><a href="#6-2-恢复管理器" class="headerlink" title="6.2 恢复管理器"></a>6.2 恢复管理器</h3><p>​        在没有故障发生的时候，保证原子性很容易。但是当有故障发生时，事物不应该对数据库产生任何影响。所以数据库必须被恢复到事物开始前的状态（又被称为回滚rollback），这是数据库中恢复管理器（recovery manager）的职责。</p>
 <h3 id="6-3-并发控制管理器"><a href="#6-3-并发控制管理器" class="headerlink" title="6.3 并发控制管理器"></a>6.3 并发控制管理器</h3><p>​        当有多个事物同时对事物进行更新时，即使保证每个事物都是正确的，数据的一致性仍有可能被破坏。并发控制管理器（concurrency-control manager）控制并发事物之间的相互影响，保证数据库的一致性。</p>
-<h2 id="7-数据库体系结构"><a href="#7-数据库体系结构" class="headerlink" title="7. 数据库体系结构"></a>7. 数据库体系结构</h2><h3 id="7-1-数据库内部结构"><a href="#7-1-数据库内部结构" class="headerlink" title="7.1 数据库内部结构"></a>7.1 数据库内部结构</h3><p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第一章笔记\2.png"></p>
-<h3 id="7-2-带数据库的应用结构"><a href="#7-2-带数据库的应用结构" class="headerlink" title="7.2 带数据库的应用结构"></a>7.2 带数据库的应用结构</h3><p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第一章笔记\3.png"></p>
-<h3 id="7-3-用户结构"><a href="#7-3-用户结构" class="headerlink" title="7.3 用户结构"></a>7.3 用户结构</h3><p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第一章笔记\5.png"></p>
+<h2 id="7-数据库体系结构"><a href="#7-数据库体系结构" class="headerlink" title="7. 数据库体系结构"></a>7. 数据库体系结构</h2><h3 id="7-1-数据库内部结构"><a href="#7-1-数据库内部结构" class="headerlink" title="7.1 数据库内部结构"></a>7.1 数据库内部结构</h3><p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/2.png"></p>
+<h3 id="7-2-带数据库的应用结构"><a href="#7-2-带数据库的应用结构" class="headerlink" title="7.2 带数据库的应用结构"></a>7.2 带数据库的应用结构</h3><p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/3.png"></p>
+<h3 id="7-3-用户结构"><a href="#7-3-用户结构" class="headerlink" title="7.3 用户结构"></a>7.3 用户结构</h3><p><img src="/2020/08/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/5.png"></p>
 
             </div>
             <hr/>
@@ -977,7 +977,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.8k</span>&nbsp;字
+                class="white-color">55.7k</span>&nbsp;字
             
             
             

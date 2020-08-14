@@ -435,6 +435,10 @@
                                 <span class="chip bg-color">database</span>
                             </a>
                         
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                                <span class="chip bg-color">数据库系统概念</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -454,21 +458,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-11
+                    2020-08-13
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.2k
+                    3.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    15 分
                 </div>
                 
 
@@ -515,7 +519,7 @@
 <p>​            声明属性<code>(A1...An)</code>必须非空且唯一。</p>
 <h4 id="1-3-2-foreign-key约束"><a href="#1-3-2-foreign-key约束" class="headerlink" title="1.3.2 foreign key约束"></a>1.3.2 foreign key约束</h4><pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#格式#</span>
 <span class="token keyword">foreign</span> <span class="token keyword">key</span> <span class="token punctuation">(</span>A1<span class="token punctuation">,</span>A2<span class="token punctuation">,</span>A3<span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>An<span class="token punctuation">)</span> <span class="token keyword">references</span> B<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>​            声明属性<code>(A1...An)</code>是B的外键。</p>
+<p>​            声明属性<code>(A1...An)</code>是<code>B</code>的外键。</p>
 <h4 id="1-3-3-not-null约束"><a href="#1-3-3-not-null约束" class="headerlink" title="1.3.3 not null约束"></a>1.3.3 not null约束</h4><pre class="line-numbers language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#格式#</span>
 N1 T1 <span class="token operator">not</span> <span class="token boolean">null</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>​            声明一个属性是非空的。</p>
@@ -642,9 +646,9 @@ N T deault <span class="token operator">&lt;</span><span class="token keyword">v
 <h4 id="3-5-4-空关系测试"><a href="#3-5-4-空关系测试" class="headerlink" title="3.5.4 空关系测试"></a>3.5.4 空关系测试</h4><p>​        用到了<code>exists</code>关键字，<code>exists(R)</code>如果R为空，返回<code>false</code>；否则，返回<code>true</code>。</p>
 <h4 id="3-5-5-唯一性测试"><a href="#3-5-5-唯一性测试" class="headerlink" title="3.5.5 唯一性测试"></a>3.5.5 唯一性测试</h4><p>​        用到了<code>unique</code>关键字，<code>unique(R)</code>如果R中不存在重复元素，返回<code>true</code>；否则，返回<code>false</code>。</p>
 <h4 id="3-5-6-集合比较关键字"><a href="#3-5-6-集合比较关键字" class="headerlink" title="3.5.6 集合比较关键字"></a>3.5.6 集合比较关键字</h4><p>​        集合比较关键字有：<code>some</code>、<code>any</code>、<code>in</code>、<code>all</code>（<code>some</code>和<code>any</code>是一样的）<br>​        比如我们要表达“至少比<code>R</code>中一个大”，那就可以用<code>&gt;some(R)</code>来表示。</p>
-<p><img src="/2020/08/11/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89&%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第三&四章笔记\2.png"></p>
+<p><img src="/2020/08/11/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89&%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/2.png"></p>
 <p>​        如果我们要表达”比<code>R</code>中所有的都小”，那就可以用<code>&lt;all(R)</code>来表示。</p>
-<p><img src="/2020/08/11/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89&%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/blog\Myblog\source_posts\数据库第三&四章笔记\3.png"></p>
+<p><img src="/2020/08/11/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89&%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/3.png"></p>
 <p>​        <code>in</code>表示测试某个元素是否在集合中。易知，<code>=some(R)</code>与<code>in</code>是等价的。</p>
 <p>​        比如说我们要找出平均工资最高的系，可以有以下查询：</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> dept_name
@@ -655,7 +659,7 @@ N T deault <span class="token operator">&lt;</span><span class="token keyword">v
     <span class="token keyword">from</span> instructor
     <span class="token keyword">group</span> <span class="token keyword">by</span> dept_name
 <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-6-with子句"><a href="#3-6-with子句" class="headerlink" title="3.6 with子句"></a>3.6 with子句</h3><p>​    with为我们提供了一种保存临时结果的机制，比如：</p>
+<h3 id="3-6-with子句"><a href="#3-6-with子句" class="headerlink" title="3.6 with子句"></a>3.6 with子句</h3><p>​    <code>with</code>为我们提供了一种保存临时结果的机制，比如：</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">with</span> max_budget <span class="token punctuation">(</span><span class="token keyword">value</span><span class="token punctuation">)</span> <span class="token keyword">as</span>
     <span class="token punctuation">(</span>
         <span class="token keyword">select</span> <span class="token function">max</span> <span class="token punctuation">(</span>budget<span class="token punctuation">)</span>
@@ -674,7 +678,7 @@ N T deault <span class="token operator">&lt;</span><span class="token keyword">v
     <span class="token keyword">where</span> dept_name <span class="token operator">=</span> <span class="token string">'Music'</span>
 <span class="token punctuation">)</span>
 <span class="token keyword">with</span> <span class="token keyword">data</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* with data 表示保存数据；如果不写with data，则仅仅创建一个和t1模式相同的新表t1 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>​    注：<code>create table as</code>是SQL 2003的标准</p>
+<p>​    注：<code>create table as</code>是<code>SQL 2003</code>的标准</p>
 <h3 id="3-7-标量子查询"><a href="#3-7-标量子查询" class="headerlink" title="3.7 标量子查询"></a>3.7 标量子查询</h3><p>​    标量：只有单个值的表达式。<strong>它可以出现在任何地方。</strong></p>
 <p>​    如果返回的值有多个，则会报错。</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> dept_name<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">from</span> instructor<span class="token punctuation">)</span>
@@ -790,13 +794,15 @@ mysql<span class="token operator">></span><span aria-hidden="true" class="line-n
 <li><p>更新（update）</p>
 </li>
 <li><p>删除（delete）</p>
+</li>
+<li><p>所有权限（all privileges）</p>
 <p>当用户提交查询或进行更新时，SQL会检查用户是否有操作权限，如果没有则会被拒绝执行。</p>
 </li>
 </ol>
 <h3 id="8-2-权限的授予"><a href="#8-2-权限的授予" class="headerlink" title="8.2 权限的授予"></a>8.2 权限的授予</h3><p>​    权限的授予用到了<code>grant</code>语句，它的语法如下：</p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">grant</span> <span class="token operator">&lt;</span>权限列表<span class="token operator">></span>
-<span class="token keyword">on</span> <span class="token operator">&lt;</span>关系名或视图名<span class="token operator">></span>
-<span class="token keyword">to</span> <span class="token operator">&lt;</span>用户<span class="token operator">/</span>角色列表<span class="token operator">></span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-mysql"><code class="language-mysql">grant <权限列表>
+on <关系名或视图名>
+to <用户/角色列表>;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>​    比如：</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">grant select
 on department
@@ -807,7 +813,39 @@ to Amit,Satoshi;<span aria-hidden="true" class="line-numbers-rows"><span></span>
 on department
 to Amit,Satoshi;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>​    将<code>department</code>表上<code>budget</code>属性的修改权限授予Amit和Satoshi两人，如果<code>update</code>后面不跟括号也不跟属性，则开放所有<code>department</code>上属性的修改权限。</p>
-<h3 id="8-3-权限的回收"><a href="#8-3-权限的回收" class="headerlink" title="8.3 权限的回收"></a>8.3 权限的回收</h3><p>​    我们可以使用<code>revoke</code>语句来回收权限。</p>
+<h3 id="8-3-权限的回收"><a href="#8-3-权限的回收" class="headerlink" title="8.3 权限的回收"></a>8.3 权限的回收</h3><p>​    我们可以使用<code>revoke</code>语句来回收权限，它的语法如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">revoke <权限列表>
+on <关系名或试图名>
+from <用户/角色列表>
+[restrict,cascade];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    比如：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">revoke select
+on department
+from Amit,Satoshi;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="8-4-角色"><a href="#8-4-角色" class="headerlink" title="8.4 角色"></a>8.4 角色</h3><p>​    角色这个概念很好理解，一般在我们现实生活中，权限授予的对象往往并不是特定的某个人，而是一类人。</p>
+<p>​    比如学生只能读取课程信息而不能修改课程信息，教师可以修改课程信息。</p>
+<p>​    创建角色很容易，语法如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">create role instructor; /* 创建一个名为instructor的角色 */<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    然后我们就可以用<code>grant</code>来对角色进行授权：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">grant select
+on department
+to instructor;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>​    最后，我们可以用<code>grant</code>向用户授予角色权限：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">grant instructor to jack;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="8-5-权限转移"><a href="#8-5-权限转移" class="headerlink" title="8.5 权限转移"></a>8.5 权限转移</h3><p>​        如果我们希望获得了授权的用户可以将自己的权限再授予别人，我们可以在<code>grant</code>后再增加<code>with grant option</code>子句。</p>
+<p>​        比如：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">grant select
+on department
+to Amit
+with grant option;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​        这样Amit就可以将<code>select</code>权限授予其他人。</p>
+<h3 id="8-6-权限的级联回收"><a href="#8-6-权限的级联回收" class="headerlink" title="8.6 权限的级联回收"></a>8.6 权限的级联回收</h3><p>​        默认情况下，如果某一位用户的权限被回收，那么由这位用户所授予的权限都会被回收。</p>
+<p>​        也就是说，从一个用户收回权限会导致其他用户也失去权限，这被称为<strong>级联回收</strong>。</p>
+<p>​        我们可以在<code>revoke</code>后添加<code>restrict</code>关键字防止级联回收（默认是<code>cascade</code>可省略），如果出现了级联回收，则返回错误。</p>
+<p>​        设想这样一种情况，Satoshi具有dean角色，它将instructor授予给Amit，后来Satoshi离开了大学，他的权限被回收；如果按照默认级联回收的规则，Amit的instructor权限也会被回收。</p>
+<p>​        为了应对这种情况，SQL允许权限由一个角色授予，而不是一个用户授予（用<code>granted by current_role</code>关键字实现）。同时，SQL有一个会话关联角色的概念。默认情况下，一个会话所关联的当前角色为空。一个会话所关联的当前角色可以通过执行<code>set role role_name</code>来实现。</p>
+<p>​        如果在授权时，将授权人设置为一个会话所关联的当前角色，并且当前角色不为空的话，我们可以在授权语句后加上<code>granted by current role</code>。</p>
+<p>​        假设将角色instructor授予给Amit是由<code>granted by current_role</code>实现的，那么当前角色被设置为dean而不是授权人，那么从Satoshi收回角色/权限就不会导致收回角色dean作为授权人所授予的权限，这样Amit也能够保持instructor的角色。</p>
 
             </div>
             <hr/>
@@ -873,6 +911,10 @@ to Amit,Satoshi;<span aria-hidden="true" class="line-numbers-rows"><span></span>
                             
                                 <a href="/tags/database/">
                                     <span class="chip bg-color">database</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                                    <span class="chip bg-color">数据库系统概念</span>
                                 </a>
                             
                         </div>
@@ -941,35 +983,30 @@ to Amit,Satoshi;<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/08/11/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89&%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/">
+                <a href="/2020/08/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%BA%94%E7%AB%A0%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="数据库系统概念第三&amp;四章——SQL笔记">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="数据库系统概念第五章——高级SQL笔记">
                         
-                        <span class="card-title">数据库系统概念第三&amp;四章——SQL笔记</span>
+                        <span class="card-title">数据库系统概念第五章——高级SQL笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据库系统概念第三&amp;四章——SQL笔记1. 数据表的定义1.1 SQL中的基本数据类型
-char(n)：固定长度为n的字符串
-varchar(n)：可变长度的字符串（最大为n）
-int：整形
-smallint：短整形
-numeric
+                            数据库系统概念第五章——高级SQL笔记1. JDBC​    针对Java连接数据库服务器的应用接口。是当下流行的数据库操纵技术。
+2. ODBC​    ODBC是由微软提供的标准API来访问数据库，如果数据库支持ODBC标准，那么用户就
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -978,7 +1015,6 @@ numeric
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1033,6 +1069,10 @@ numeric
                     
                     <a href="/tags/database/">
                         <span class="chip bg-color">database</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                        <span class="chip bg-color">数据库系统概念</span>
                     </a>
                     
                 </div>
@@ -1239,7 +1279,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.8k</span>&nbsp;字
+                class="white-color">55.7k</span>&nbsp;字
             
             
             

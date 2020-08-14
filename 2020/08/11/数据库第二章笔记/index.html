@@ -435,6 +435,10 @@
                                 <span class="chip bg-color">database</span>
                             </a>
                         
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                                <span class="chip bg-color">数据库系统概念</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -454,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-11
+                    2020-08-13
                 </div>
                 
 
@@ -495,7 +499,7 @@
 <h3 id="3-1-说明"><a href="#3-1-说明" class="headerlink" title="3.1 说明"></a>3.1 说明</h3><p>1.主码的属性用下划线标注。</p>
 <p>2.每个关系用一个矩形表示。</p>
 <p>3.外码依赖用 从参照关系的外码属性到被参照关系的主码属性之间的箭头表示。</p>
-<p>​    比如说，对于takes和student关系，ID是student的主码，也是takes的外键。</p>
+<p>​    比如说，对于<code>takes</code>和<code>student</code>关系，<code>ID</code>是<code>student</code>的主码，也是<code>takes</code>的外键。</p>
 <h2 id="4-关系代数-Relational-Algebra"><a href="#4-关系代数-Relational-Algebra" class="headerlink" title="4. 关系代数(Relational Algebra)"></a>4. 关系代数(Relational Algebra)</h2><h3 id="4-1-六种基本关系代数运算"><a href="#4-1-六种基本关系代数运算" class="headerlink" title="4.1 六种基本关系代数运算"></a>4.1 六种基本关系代数运算</h3><ol>
 <li><p>选择运算</p>
 <p>返回输入关系中，满足条件（谓词）的行。</p>
@@ -522,13 +526,13 @@
 <li><p>赋值运算</p>
 </li>
 <li><p>外连接（左外/右外/全外）</p>
-<p>左外连接（left outer join）：类似于自然连接，但是对于运算符左侧关键词不匹配的元组用null填充所有来自右侧关系的属性，再将产生的元组加到自然连接的结果中</p>
+<p>左外连接（<code>left outer join</code>）：类似于自然连接，但是对于运算符左侧关键词不匹配的元组用null填充所有来自右侧关系的属性，再将产生的元组加到自然连接的结果中</p>
 <p>左外连接=自然连接+运算符左侧关键词不匹配的元组</p>
 <p>同理，右外连接=自然连接+运算符右侧关键词不匹配的元组</p>
 <p>同理，全外连接=自然连接+运算符右侧关键词不匹配的元组+运算符左侧关键词不匹配的元组</p>
 </li>
 <li><p>广义投影</p>
-<p>在投影的基础上，允许对结果属性进行+，-，*，/的运算，例如：<br>$$<br>Π_{ID,name,salary/12}(instructor)<br>$$</p>
+<p>在投影的基础上，允许对结果属性进行<code>+</code>，<code>-</code>，<code>*</code>，<code>/</code>的运算，例如：<br>$$<br>Π_{ID,name,salary/12}(instructor)<br>$$</p>
 </li>
 <li><p>聚集</p>
 <p>聚集运算可以用下列式子来表达：<br>$$<br>_{G_1,G_2,…G_n} G _{F_1(A_1),F_2(A_2),…,F_m(A_m)}(E)<br>$$<br>其中G<del>n</del> 是属性名，表示要聚集的属性，F<del>n</del>(A<del>m</del>)表示聚集函数，比如$avg$，$sum$等</p>
@@ -600,6 +604,10 @@
                             
                                 <a href="/tags/database/">
                                     <span class="chip bg-color">database</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                                    <span class="chip bg-color">数据库系统概念</span>
                                 </a>
                             
                         </div>
@@ -709,6 +717,10 @@ numeric
                     
                     <a href="/tags/database/">
                         <span class="chip bg-color">database</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                        <span class="chip bg-color">数据库系统概念</span>
                     </a>
                     
                 </div>
@@ -967,7 +979,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.8k</span>&nbsp;字
+                class="white-color">55.7k</span>&nbsp;字
             
             
             
