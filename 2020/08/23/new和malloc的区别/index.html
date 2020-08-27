@@ -1,0 +1,1242 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="new和malloc的区别, SYH的博客">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>new和malloc的区别 | SYH的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.1.1"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">SYH的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">SYH的博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">new和malloc的区别</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/c/">
+                                <span class="chip bg-color">c++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-08-27
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>​    本文转载自：<a href="https://www.cnblogs.com/ywliao/articles/8116622.html" target="_blank" rel="noopener">https://www.cnblogs.com/ywliao/articles/8116622.html</a></p>
+<p>​    几个星期前去面试C++研发的实习岗位，面试官问了个问题：</p>
+<blockquote>
+<p>new与malloc有什么区别？</p>
+</blockquote>
+<p>​    这是个老生常谈的问题。当时我回答new从自由存储区上分配内存，<code>malloc</code>从堆上分配内存；<code>new/delete</code>会调用构造函数/析构函数对对象进行初始化与销毁；<code>operator new/delete</code>可以进行重载；然后强行分析了一下自由存储区与堆的区别。回来后感觉这个问题其实回答得不怎么好，因为关于<code>new</code>与<code>malloc</code>的区别实际上很多。面试期间刚好是刚期末考完，之后是几个课设没时间去整理。今天花了点时间整理下这个问题。</p>
+<h1 id="二、new与malloc的10点区别"><a href="#二、new与malloc的10点区别" class="headerlink" title="二、new与malloc的10点区别"></a>二、new与malloc的10点区别</h1><h2 id="1-申请的内存所在位置"><a href="#1-申请的内存所在位置" class="headerlink" title="1. 申请的内存所在位置"></a>1. 申请的内存所在位置</h2><p>​    <code>new</code>操作符从自由存储区（<code>free store</code>）上为对象动态分配内存空间，而<code>malloc</code>函数从堆上动态分配内存。自由存储区是C++基于<code>new</code>操作符的一个抽象概念，凡是通过<code>new</code>操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用<code>malloc</code>从堆上分配内存，使用<code>free</code>释放已分配的对应内存。</p>
+<p>​    那么自由存储区是否能够是堆（问题等价于<code>new</code>是否能在堆上动态分配内存），这取决于<code>operator new</code> 的实现细节。自由存储区不仅可以是堆，还可以是静态存储区，这都看<code>operator new</code>在哪里为对象分配内存。</p>
+<p>​    特别的，<code>new</code>甚至可以不为对象分配内存！定位<code>new</code>的功能可以办到这一点：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">new</span> <span class="token punctuation">(</span>place_address<span class="token punctuation">)</span> type<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    <code>place_address</code>为一个指针，代表一块内存的地址。当使用上面这种仅以一个地址调用<code>new</code>操作符时，<code>new</code>操作符调用特殊的<code>operator new</code>，也就是下面这个版本：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">new</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">,</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//不允许重定义这个版本的operator new</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    这个<code>operator new</code>不分配任何的内存，它只是简单地返回指针实参，然后右<code>new</code>表达式负责在<code>place_address</code>指定的地址进行对象的初始化工作。</p>
+<h2 id="2-返回类型安全性"><a href="#2-返回类型安全性" class="headerlink" title="2.返回类型安全性"></a>2.返回类型安全性</h2><p>​    <code>new</code>操作符内存分配成功时，返回的是对象类型的指针，类型严格与对象匹配，无须进行类型转换，故<code>new</code>是符合类型安全性的操作符。<strong>而<code>malloc</code>内存分配成功则是返回<code>void *</code> ，需要通过强制类型转换将<code>void*</code>指针转换成我们需要的类型。</strong><br>​    类型安全很大程度上可以等价于内存安全，类型安全的代码不会试图方法自己没被授权的内存区域。关于C++的类型安全性可说的又有很多了。</p>
+<h2 id="3-内存分配失败时的返回值"><a href="#3-内存分配失败时的返回值" class="headerlink" title="3.内存分配失败时的返回值"></a>3.内存分配失败时的返回值</h2><p>​    <code>new</code>内存分配失败时，会抛出<code>bac_alloc</code>异常，它不会返回<code>NULL</code>；<code>malloc</code>分配内存失败时返回<code>NULL</code>。<br>​    在使用C语言时，我们习惯在<code>malloc</code>分配内存后判断分配是否成功：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token operator">*</span>a  <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span> <span class="token punctuation">(</span> <span class="token keyword">sizeof</span> <span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token constant">NULL</span> <span class="token operator">==</span> a<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> 
+<span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    从C语言走入C++阵营的新手可能会把这个习惯带入C++：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token constant">NULL</span> <span class="token operator">==</span> a<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span>
+<span class="token punctuation">{</span>   
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    实际上这样做一点意义也没有，因为<code>new</code>根本不会返回<code>NULL</code>，而且程序能够执行到if语句已经说明内存分配成功了，如果失败早就抛异常了。正确的做法应该是使用异常机制：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">try</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">catch</span> <span class="token punctuation">(</span>bad_alloc<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    如果你想顺便了解下异常基础，可以看<a href="http://www.cnblogs.com/QG-whz/p/5136883.htmlC++" target="_blank" rel="noopener">http://www.cnblogs.com/QG-whz/p/5136883.htmlC++</a> 异常机制分析。</p>
+<h2 id="4-是否需要指定内存大小"><a href="#4-是否需要指定内存大小" class="headerlink" title="4.是否需要指定内存大小"></a>4.是否需要指定内存大小</h2><p>​    使用<code>new</code>操作符申请内存分配时无须指定内存块的大小，编译器会根据类型信息自行计算，而<code>malloc</code>则需要显式地指出所需内存的尺寸。</p>
+<pre class="line-numbers language-c"><code class="language-c">class A<span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+A <span class="token operator">*</span> ptr <span class="token operator">=</span> new A<span class="token punctuation">;</span>
+A <span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token punctuation">(</span>A <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//需要显式指定所需内存大小sizeof(A);</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>​    当然了，我这里使用<code>malloc</code>来为我们自定义类型分配内存是不怎么合适的，请看下一条。</p>
+<h2 id="5-是否调用构造函数-析构函数"><a href="#5-是否调用构造函数-析构函数" class="headerlink" title="5.是否调用构造函数/析构函数"></a>5.是否调用构造函数/析构函数</h2><p>​    使用<code>new</code>操作符来分配对象内存时会经历三个步骤：</p>
+<ul>
+<li>第一步：调用<code>operator new</code> 函数（对于数组是<code>operator new[]</code>）分配一块足够大的，原始的，未命名的内存空间以便存储特定类型的对象。</li>
+<li>第二步：编译器运行相应的构造函数以构造对象，并为其传入初值。</li>
+<li>第三步：对象构造完成后，返回一个指向该对象的指针。</li>
+</ul>
+<p>使用<code>delete</code>操作符来释放对象内存时会经历两个步骤：</p>
+<ul>
+<li>第一步：<strong>调用对象的析构函数。</strong></li>
+<li>第二步：编译器调用<code>operator delete</code>(或<code>operator delete[]</code>)函数释放内存空间。</li>
+</ul>
+<p>​    总之来说，<code>new/delete</code>会调用对象的构造函数/析构函数以完成对象的构造/析构。而<code>malloc</code>则不会。如果你不嫌啰嗦可以看下我的例子：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">A</span>
+<span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">b</span><span class="token punctuation">(</span><span class="token number">1.11</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+    <span class="token keyword">double</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    A <span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token punctuation">(</span>A<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    在<code>return</code>处设置断点，观看<code>ptr</code>所指内存的内容：</p>
+<p><img src="/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/1" alt="img"></p>
+<p>​    可以看出<code>A</code>的默认构造函数并没有被调用，因为数据成员<code>a,b</code>的值并没有得到初始化，这也是上面我为什么说使用<code>malloc/free</code>来处理C++的自定义类型不合适，其实不止自定义类型，标准库中凡是需要构造/析构的类型通通不合适。</p>
+<p>​    而使用<code>new</code>来分配对象时：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    A <span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token keyword">new</span> A<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    查看程序生成的汇编代码可以发现，<code>A</code>的默认构造函数被调用了：</p>
+<p><img src="/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/2" alt="img"></p>
+<h2 id="6-对数组的处理"><a href="#6-对数组的处理" class="headerlink" title="6.对数组的处理"></a>6.对数组的处理</h2><p>​    C++提供了<code>new[]</code>与<code>delete[]</code>来专门处理数组类型:</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">A <span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token keyword">new</span> A<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//分配10个A对象</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    使用<code>new[]</code>分配的内存必须使用<code>delete[]</code>进行释放：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">delete</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> ptr<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​    <code>new</code>对数组的支持体现在它会分别调用构造函数函数初始化每一个数组元素，释放对象时为每个对象调用析构函数。注意<code>delete[]</code>要与<code>new[]</code>配套使用，不然会找出数组对象部分释放的现象，造成内存泄漏。</p>
+<p>​    至于<code>malloc</code>，它并不知道你在这块内存上要放的数组还是啥别的东西，反正它就给你一块原始的内存，在给你个内存的地址就完事。所以如果要动态分配一个数组的内存，还需要我们手动自定数组的大小：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//分配一个10个int元素的数组</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="7-new与malloc是否可以相互调用"><a href="#7-new与malloc是否可以相互调用" class="headerlink" title="7.new与malloc是否可以相互调用"></a>7.new与malloc是否可以相互调用</h2><p><code>operator new /operator delete</code>的实现可以基于<code>malloc</code>，而<code>malloc</code>的实现不可以去调用<code>new</code>。下面是编写<code>operator new /operator delete</code> 的一种简单方式，其他版本也与之类似：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">new</span> <span class="token punctuation">(</span>sieze_t size<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span> mem <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> mem<span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        <span class="token keyword">throw</span> <span class="token function">bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>mem<span class="token punctuation">)</span> <span class="token keyword">noexcept</span>
+<span class="token punctuation">{</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>mem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="8-是否可以被重载"><a href="#8-是否可以被重载" class="headerlink" title="8.是否可以被重载"></a>8.是否可以被重载</h2><p>​    <code>opeartor new /operator delete</code>可以被重载。标准库是定义了<code>operator new</code>函数和<code>operator delete</code>函数的8个重载版本：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//这些版本可能抛出异常</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>size_t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>size_t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">delete</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span> <span class="token punctuation">)</span><span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token number">0</span>）<span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//这些版本承诺不抛出异常</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>size_t <span class="token punctuation">,</span>nothrow_t<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>size_t<span class="token punctuation">,</span> nothrow_t<span class="token operator">&amp;</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">delete</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">,</span>nothrow_t<span class="token operator">&amp;</span> <span class="token punctuation">)</span><span class="token keyword">noexcept</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token number">0</span><span class="token punctuation">,</span>nothrow_t<span class="token operator">&amp;</span> ）<span class="token keyword">noexcept</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    我们可以自定义上面函数版本中的任意一个，前提是自定义版本必须位于全局作用域或者类作用域中。太细节的东西不在这里讲述，总之，我们知道我们有足够的自由去重载<code>operator new /operator delete</code>,以决定我们的<code>new</code>与<code>delete</code>如何为对象分配内存，如何回收对象。</p>
+<p>​    而<code>malloc/free</code>并不允许重载。</p>
+<h2 id="9-能够直观地重新分配内存"><a href="#9-能够直观地重新分配内存" class="headerlink" title="9. 能够直观地重新分配内存"></a>9. 能够直观地重新分配内存</h2><p>​    使用<code>malloc</code>分配的内存后，如果在使用过程中发现内存不足，可以使用<code>realloc</code>函数进行内存重新分配实现内存的扩充。<code>realloc</code>先判断当前的指针所指内存是否有足够的连续空间，如果有，原地扩大可分配的内存地址，并且返回原来的地址指针；如果空间不够，先按照新指定的大小分配空间，将原有数据从头到尾拷贝到新分配的内存区域，而后释放原来的内存区域。</p>
+<p>​    <code>new</code>没有这样直观的配套设施来扩充内存。</p>
+<h2 id="10-客户处理内存分配不足"><a href="#10-客户处理内存分配不足" class="headerlink" title="10. 客户处理内存分配不足"></a>10. 客户处理内存分配不足</h2><p>​    在<code>operator new</code>抛出异常以反映一个未获得满足的需求之前，它会先调用一个用户指定的错误处理函数，这就是<code>new-handler</code>。<code>new_handler</code>是一个指针类型：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">namespace</span> std
+<span class="token punctuation">{</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>new_handler<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    指向了一个没有参数没有返回值的函数,即为错误处理函数。为了指定错误处理函数，客户需要调用<code>set_new_handler</code>，这是一个声明于的一个标准库函数:</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">namespace</span> std
+<span class="token punctuation">{</span>
+    new_handler <span class="token function">set_new_handler</span><span class="token punctuation">(</span>new_handler p <span class="token punctuation">)</span> <span class="token keyword">throw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    <code>set_new_handler</code>的参数为<code>new_handler</code>指针，指向了<code>operator new</code> 无法分配足够内存时该调用的函数。其返回值也是个指针，指向<code>set_new_handler</code>被调用前正在执行（但马上就要发生替换）的那个<code>new_handler</code>函数。</p>
+<p>​    对于<code>malloc</code>，客户并不能够去编程决定内存不足以分配时要干什么事，只能看着<code>malloc</code>返回<code>NULL</code>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>​    将上面所述的10点差别整理成表格：</p>
+<table>
+<thead>
+<tr>
+<th align="center">特征</th>
+<th align="center">new/delete</th>
+<th align="center">malloc/free</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">分配内存的位置</td>
+<td align="center">自由存储区</td>
+<td align="center">堆</td>
+</tr>
+<tr>
+<td align="center">内存分配失败返回值</td>
+<td align="center">完整类型指针</td>
+<td align="center">void*</td>
+</tr>
+<tr>
+<td align="center">内存分配失败返回值</td>
+<td align="center">默认抛出异常</td>
+<td align="center">返回NULL</td>
+</tr>
+<tr>
+<td align="center">分配内存的大小</td>
+<td align="center">由编译器根据类型计算得出</td>
+<td align="center">必须显式指定字节数</td>
+</tr>
+<tr>
+<td align="center">处理数组</td>
+<td align="center">有处理数组的new版本new[]</td>
+<td align="center">需要用户计算数组的大小后进行内存分配</td>
+</tr>
+<tr>
+<td align="center">已分配内存的扩充</td>
+<td align="center">无法直观地处理</td>
+<td align="center">使用realloc简单完成</td>
+</tr>
+<tr>
+<td align="center">是否相互调用</td>
+<td align="center">可以，看具体的operator new/delete实现</td>
+<td align="center">不可调用new</td>
+</tr>
+<tr>
+<td align="center">分配内存时内存不足</td>
+<td align="center">客户能够指定处理函数或重新制定分配器</td>
+<td align="center">无法通过用户代码进行处理</td>
+</tr>
+<tr>
+<td align="center">函数重载</td>
+<td align="center">允许</td>
+<td align="center">不允许</td>
+</tr>
+<tr>
+<td align="center">构造函数与析构函数</td>
+<td align="center">调用</td>
+<td align="center">不调用</td>
+</tr>
+</tbody></table>
+<p>​    <code>malloc</code>给你的就好像一块原始的土地，你要种什么需要自己在土地上来播种</p>
+<p><img src="/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/3" alt="img"></p>
+<p>​    而<code>new</code>帮你划好了田地的分块（数组），帮你播了种（构造函数），还提供其他的设施给你使用:</p>
+<p><img src="/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/4" alt="img"></p>
+<p>​    当然，<code>malloc</code>并不是说比不上<code>new</code>，它们各自有适用的地方。在C++这种偏重OOP的语言，使用<code>new/delete</code>自然是更合适的。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">YuHong Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://Yuki-Asuuna.github.io/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/">http://Yuki-Asuuna.github.io/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">YuHong Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/c/">
+                                    <span class="chip bg-color">c++</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2020-08-23T15-20-16',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/08/23/STL%E4%B8%AD%E7%9A%84%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="C++11中的智能指针">
+                        
+                        <span class="card-title">C++11中的智能指针</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            C++11中的智能指针​    C++智能指针底层是采用引用计数的方式实现的。简单理解：智能指针在申请堆内存空间的同时，会为其分配一个整形值（初始为 1），每当有新对象使用此堆内存时，该整形值 +1；反之，每当使用此堆内存的对象被释放时，该
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            YuHong Sun
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/c/">
+                        <span class="chip bg-color">c++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="数据库系统概念第十四章——事务">
+                        
+                        <span class="card-title">数据库系统概念第十四章——事务</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数据库系统概念第十四章——事务1. 事务的概念​    事务（transaction）是数据库程序执行的单元。它满足ACID四个性质。
+
+原子性（Atomicity）：事务中操作，要么都做，要么都不做。
+一致性（Consistency）：事
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            YuHong Sun
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/database/">
+                        <span class="chip bg-color">database</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                        <span class="chip bg-color">数据库系统概念</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020# 年份</span>
+            <a href="/about" target="_blank">YuHong Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">75.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Yuki-Asuuna" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:10174503104@stu.ecnu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=501263359" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 501263359" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/xi-lian-chuan-lu-xia" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/xi-lian-chuan-lu-xia" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+
+</html>

@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<meta name="generator" content="Hexo 4.1.1"><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -497,11 +497,11 @@
 systemctl <span class="token function">enable</span> docker    <span class="token comment" spellcheck="true">#设置开机自动启动</span>
 docker run hello-world     <span class="token comment" spellcheck="true">#测试</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="二、Docker的中央仓库"><a href="#二、Docker的中央仓库" class="headerlink" title="二、Docker的中央仓库"></a>二、Docker的中央仓库</h2><ol>
-<li><p>Docker官方的中央仓库：这个仓库是镜像最全的，但是下载速度较慢。<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<li><p>Docker官方的中央仓库：这个仓库是镜像最全的，但是下载速度较慢。<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
 </li>
 <li><p>国内的镜像网站：网易蜂巢，daoCloud等，下载速度快，但是镜像相对不全</p>
-<p><a target="_blank" rel="noopener" href="https://c.163yun.com/hub#/home">https://c.163yun.com/hub#/home</a></p>
-<p><a target="_blank" rel="noopener" href="http://hub.daocloud.io/">http://hub.daocloud.io/</a></p>
+<p><a href="https://c.163yun.com/hub#/home" target="_blank" rel="noopener">https://c.163yun.com/hub#/home</a></p>
+<p><a href="http://hub.daocloud.io/" target="_blank" rel="noopener">http://hub.daocloud.io/</a></p>
 </li>
 <li><p>在公司内部会采用私服的方式拉取镜像（添加配置）</p>
 <p>需要创建 /etc/docker/daemon.json，并添加如下内容</p>
@@ -587,7 +587,7 @@ from daocloud.io/library/tomcat:8.5.15-jre8copy ssm.war /usr/local/tomcat/webapp
 <p>==注意最后的 ./ 千万不要漏掉！！！==</p>
 <pre class="line-numbers language-bash"><code class="language-bash">docker build -t 镜像名称<span class="token punctuation">[</span>:tag<span class="token punctuation">]</span> ./<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="八、Docker-Compose"><a href="#八、Docker-Compose" class="headerlink" title="八、Docker-Compose"></a>八、Docker-Compose</h2><h3 id="1-下载并安装Docker-Compose"><a href="#1-下载并安装Docker-Compose" class="headerlink" title="1.下载并安装Docker-Compose"></a>1.下载并安装Docker-Compose</h3><h3 id="1-1下载Docker-Compose"><a href="#1-1下载Docker-Compose" class="headerlink" title="1.1下载Docker-Compose"></a>1.1下载Docker-Compose</h3><p>​    去Github官网搜索docker-compose，下载1.24.1版本的Docker-Compose</p>
-<p>​    下载地址：<a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64">https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64</a></p>
+<p>​    下载地址：<a href="https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64" target="_blank" rel="noopener">https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64</a></p>
 <h3 id="1-2设置权限"><a href="#1-2设置权限" class="headerlink" title="1.2设置权限"></a>1.2设置权限</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mv</span> docker-compose-Linux-x86_64 docker-composechmod 777 docker-compose
 <span class="token comment" spellcheck="true">#需要将DockerCompose文件的名称修改一下，给予DockerCompose文件一个可执行的权限</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="1-3配置环境变量"><a href="#1-3配置环境变量" class="headerlink" title="1.3配置环境变量"></a>1.3配置环境变量</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mv</span> docker-compose /usr/local/binvi /etc/profile<span class="token comment" spellcheck="true">#添加内容：export PATH=$JAVA_HOME:/usr/local/bin:$PATHsource /etc/profile</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -638,7 +638,7 @@ from daocloud.io/library/tomcat:8.5.15-jre8copy ssm.war /usr/local/tomcat/webapp
 <h3 id="1-创建Dockerfile"><a href="#1-创建Dockerfile" class="headerlink" title="1.创建Dockerfile"></a>1.创建Dockerfile</h3><pre><code># DockerfileFROM daocloud.io/library/tomcat:8.5.15-jre8COPY testci.war /usr/local/tomcat/webapps</code></pre>
 <h3 id="2-创建docker-compose-yml"><a href="#2-创建docker-compose-yml" class="headerlink" title="2.创建docker-compose.yml"></a>2.创建docker-compose.yml</h3><pre><code># docker-compose.ymlversion: &quot;3.1&quot;services:  testci:    build: docker    restart: always    container_name: testci    ports:      - 8080:8080</code></pre>
 <h3 id="3-修改-gitlab-ci-yml"><a href="#3-修改-gitlab-ci-yml" class="headerlink" title="3.修改.gitlab-ci.yml"></a>3.修改.gitlab-ci.yml</h3><pre><code># ci.ymlstages:  - test test:  stage: test  script:    - echo first test ci    - /usr/local/maven/apache-maven-3.6.3/bin/mvn package    - cp target/testci-1.0-SNAPSHOT.war docker/testci.war    - docker-compose down    - docker-compose up -d --build    - docker rmi $(docker images -qf dangling=true)</code></pre>
-<p>剩下的是Jenkins+Gitlib实现自动化部署上线，我的博客有单独的文章介绍自动化部署，感兴趣的小伙伴可以学习学习。<br>Gitlib文章：<a target="_blank" rel="noopener" href="https://www.lixian.fun/category/devops/gitlib">https://www.lixian.fun/category/devops/gitlib</a><br>Jenkins文章：<a target="_blank" rel="noopener" href="https://www.lixian.fun/category/devops/jenkins">https://www.lixian.fun/category/devops/jenkins</a></p>
+<p>剩下的是Jenkins+Gitlib实现自动化部署上线，我的博客有单独的文章介绍自动化部署，感兴趣的小伙伴可以学习学习。<br>Gitlib文章：<a href="https://www.lixian.fun/category/devops/gitlib" target="_blank" rel="noopener">https://www.lixian.fun/category/devops/gitlib</a><br>Jenkins文章：<a href="https://www.lixian.fun/category/devops/jenkins" target="_blank" rel="noopener">https://www.lixian.fun/category/devops/jenkins</a></p>
 
             </div>
             <hr/>
@@ -1083,7 +1083,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">65.5k</span>&nbsp;字
+                class="white-color">75.5k</span>&nbsp;字
             
             
             

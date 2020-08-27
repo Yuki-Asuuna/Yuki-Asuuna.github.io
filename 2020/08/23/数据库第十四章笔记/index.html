@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<meta name="generator" content="Hexo 4.1.1"><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -458,21 +458,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-23
+                    2020-08-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    806
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    6 分
                 </div>
                 
 
@@ -489,10 +489,10 @@
             <div id="articleContent">
                 <h1 id="数据库系统概念第十四章——事务"><a href="#数据库系统概念第十四章——事务" class="headerlink" title="数据库系统概念第十四章——事务"></a>数据库系统概念第十四章——事务</h1><h2 id="1-事务的概念"><a href="#1-事务的概念" class="headerlink" title="1. 事务的概念"></a>1. 事务的概念</h2><p>​    事务（transaction）是数据库程序执行的单元。它满足ACID四个性质。</p>
 <ul>
-<li>原子性（Atomicity）：事务中操作，要么都做，要么都不做。</li>
-<li>一致性（Consistency）：事务开始前结束后，数据库的完整性没有被破坏（修改必须满足约束、触发器等）。</li>
-<li>隔离性（Isolation）：事务可能并发执行，但每个事务都无法感觉到并发事务的存在。（也就是说，隔防止多个并行事务执行导致的数据不一致）</li>
-<li>持久性（Durability）：事务一旦成功执行，它的修改会永久地保存在数据库中。（即使发生故障，数据也不会受到影响）</li>
+<li><strong>原子性（Atomicity）</strong>：事务中操作，要么都做，要么都不做。</li>
+<li><strong>一致性（Consistency）</strong>：事务开始前结束后，数据库的完整性没有被破坏（修改必须满足约束、触发器等）。</li>
+<li><strong>隔离性（Isolation）</strong>：事务可能并发执行，但每个事务都无法感觉到并发事务的存在。（也就是说，隔防止多个并行事务执行导致的数据不一致）</li>
+<li><strong>持久性（Durability）</strong>：事务一旦成功执行，它的修改会永久地保存在数据库中。（即使发生故障，数据也不会受到影响）</li>
 </ul>
 <h2 id="2-事务的状态"><a href="#2-事务的状态" class="headerlink" title="2. 事务的状态"></a>2. 事务的状态</h2><p>​    事务的状态有以下5种：</p>
 <ol>
@@ -502,22 +502,22 @@
 <li>中止的（Aborted）：事务回滚到事务开始执行前的状态。</li>
 <li>提交的（Committed）：事务成功完成。</li>
 </ol>
-<p><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source_posts\数据库第十四章笔记\1.png"></p>
+<p><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/1.png" alt="事物状态转换图"></p>
 <p>​    其中，关于部分提交（Partially committed），有这样一个例子：事务中的语句虽然已经全部执行完毕，但是实际的输出仍然驻留在内存中，若结果写出到硬盘的过程时发生硬件故障，还是有可能导致事务执行失败。</p>
 <h2 id="3-事务的并发"><a href="#3-事务的并发" class="headerlink" title="3. 事务的并发"></a>3. 事务的并发</h2><p>​    为了提高效率，现在绝大多数数据库都运行事务并发执行。因而我们要保证事务与事务并发时不会产生冲突。</p>
 <h3 id="3-1-调度（Schedule）"><a href="#3-1-调度（Schedule）" class="headerlink" title="3.1 调度（Schedule）"></a>3.1 调度（Schedule）</h3><p>​    调度是指：指令在系统中执行的时间顺序序列，一个调度可能包含多个事务。</p>
-<p>​    调度必须保证事务中<strong>每一条指令都出现</strong>，且<strong>同一事物中的指令必须按照时间的先后顺序排列</strong>。</p>
+<p>​    调度必须保证事务中<strong>每一条指令都出现</strong>，且<strong>同一事务中的指令必须按照时间的先后顺序排列</strong>。</p>
 <p>​    比如下图就是调度的一个例子：</p>
-<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source\_posts\数据库第十四章笔记\3.png" alt="Schedule 1" style="zoom:67%;">
+<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/3.png" alt="Schedule 1" style="zoom:67%;">
 
 <p>​    这两个调度是<strong>串行的（Serial）</strong>，且<u>同一事务的指令紧挨在一起</u>，下图同理也是一个串行调度。</p>
-<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source\_posts\数据库第十四章笔记\3.png" alt="Schedule 2" style="zoom:67%;">
+<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/3.png" alt="Schedule 2" style="zoom:67%;">
 
 <p>​    如下图，该调度不是串行的，但它和<code>Schedule 1</code>是<u>等价的</u>。</p>
-<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source\_posts\数据库第十四章笔记\4.png" alt="Schedule 4" style="zoom:67%;">
+<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/4.png" alt="Schedule 4" style="zoom:67%;">
 
 <p>​    如下图，该调度既不是串行的，也不与<code>Schedule 1</code>等价（因为破坏了一致性约束）。</p>
-<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source\_posts\数据库第十四章笔记\5.png" alt="Schedule 4" style="zoom:67%;">
+<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/5.png" alt="Schedule 4" style="zoom:67%;">
 
 <p>​    <strong>因此，数据库并发控制的目标是：找出一种调度，使其与串行执行的结果等价。</strong></p>
 <h3 id="3-2-可串行化（Serializability）"><a href="#3-2-可串行化（Serializability）" class="headerlink" title="3.2 可串行化（Serializability）"></a>3.2 可串行化（Serializability）</h3><h4 id="3-2-1-定义"><a href="#3-2-1-定义" class="headerlink" title="3.2.1 定义"></a>3.2.1 定义</h4><p>​        如果能够找到一种调度，使其与串行执行的结果等价，那么称该调度是可串行化的。</p>
@@ -530,6 +530,45 @@
 <li>$l_i=write(Q)$,$l_j=write(Q)$，$l_i$与$l_j$冲突</li>
 </ol>
 <p>​        也就是说，当$I$和$J$是不同事务在相同数据项的操作，并且其中有一个$write$指令，那么$I$与$J$是冲突的。</p>
+<p>​        $S$通过交换两条不冲突的指令生成的新调度$S’$与$S$等价。</p>
+<p>​        注意！这里“交换“的意思是指：交换两条指令执行的相对顺序，而不是直接交换两条指令。<br><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/6.png" style="zoom:67%;"></p>
+<p>​        如上图，$Schedule\space 3$和$Schedule\space 6$是等价的。</p>
+<p>​        首先，$T_1$中的$read(B)$与$T_2$中的$read(A),write(A),read(B)$都是不冲突的，但这并不意味着可以将这三条语句直接放在$T_1$的$read(B)$前执行，因为$T_2$中的$read(B)$与$T_1$中的$write(B)$是冲突的，所以不可以交换执行相对顺序。</p>
+<p>​        但是，我们可以交换$T_2$中$read(A),write(A)$与$T_1$中$read(B),write(B)$的执行顺序，因为它们都不互相冲突，可以随意调换执行顺序，从而得到$Schedule\space 6$。</p>
+<h4 id="3-2-3-冲突等价"><a href="#3-2-3-冲突等价" class="headerlink" title="3.2.3 冲突等价"></a>3.2.3 冲突等价</h4><p>​        如果调度$S$可以通过一系列非冲突指令的交换得到调度$S’$，那么我们认为$S$和$S’$是<strong>冲突等价（conflict equivalent）</strong>的。</p>
+<p>​        如果调度$S$与一个串行调度冲突等价，那么$S$就是冲突可串行化的。</p>
+<p><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/7.png"></p>
+<p>​        在上面这个例子中，无论我们怎么交换，$T_3$和$T_4$的指令都是冲突的，无法将其转化为某个串行调度，因而该调度是不可冲突串行化的。</p>
+<h4 id="3-2-4-冲突可串行化的判断"><a href="#3-2-4-冲突可串行化的判断" class="headerlink" title="3.2.4 冲突可串行化的判断"></a>3.2.4 冲突可串行化的判断</h4><p>​        我们可以将这个问题转化为一个图论问题。建图按照下列规则进行：</p>
+<ol>
+<li>$T_j$执行$read(Q)$之前，$T_i$执行$write(Q)$</li>
+<li>$T_j$执行$write(Q)$之前，$T_i$执行$read(Q)$</li>
+<li>$T_j$执行$write(Q)$之前，$T_i$执行$write(Q)$</li>
+</ol>
+<p>​        建图完成后，如果图上无环（拓扑排序），则说明该调度是冲突可串行化的；否则，就不是。</p>
+<p><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/8.png"></p>
+<h2 id="4-事务隔离性和原子性"><a href="#4-事务隔离性和原子性" class="headerlink" title="4. 事务隔离性和原子性"></a>4. 事务隔离性和原子性</h2><h3 id="4-1-可恢复调度"><a href="#4-1-可恢复调度" class="headerlink" title="4.1 可恢复调度"></a>4.1 可恢复调度</h3><p>​    如果事务$T_j$读取了被事务$T_i$所写的项，那么$T_i$的commit一定要先于$T_j$的commit。</p>
+<p><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/9.png"></p>
+<p>​    上图的调度就是不可恢复调度。因为$T_9$读取了$T_8$所写的项$A$，而$T_9$的commit没有先于$T_8$，而是在$T_8$当中，所以一旦$T_8$需要rollback，会导致一致性错误。</p>
+<h3 id="4-2-级联回滚（Cascading-Rollback）"><a href="#4-2-级联回滚（Cascading-Rollback）" class="headerlink" title="4.2 级联回滚（Cascading Rollback）"></a>4.2 级联回滚（Cascading Rollback）</h3><p>​    一个事务的失败回滚导致多个事务也回滚。</p>
+<p><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/10.png"></p>
+<p>​    如上图所示，当$T_{10}$错误回滚时，$T_{11}$和$T_{12}$也要跟着回滚。</p>
+<p>​    级联回滚可能会导致大量的操作被撤销。为了避免这种情况，我们要将调度变为无级联的（cascadeless）。</p>
+<p>​    对于每对事务$T_i$和$T_j$，如果$T_j$读取了先前由$T_i$写的数据项，那么$T_i$必须先于$T_j$的这个读操作提交。</p>
+<h2 id="5-隔离级别"><a href="#5-隔离级别" class="headerlink" title="5. 隔离级别"></a>5. 隔离级别</h2><h3 id="5-1-SQL标准隔离级别"><a href="#5-1-SQL标准隔离级别" class="headerlink" title="5.1 SQL标准隔离级别"></a>5.1 SQL标准隔离级别</h3><p>隔离级别越高，正确性越高，但是吞吐量越低；隔离级别越低，正确性越低，但是吞吐量越高。</p>
+<p>SQL 标准里定义了四个隔离级别：</p>
+<ol>
+<li>读未提交（Read Uncommitted）：会出现脏读（Dirty Read）—— 一个事务会读到另一个事务的中间状态。</li>
+<li>读已提交（Read Committed）：会出现不可重复读（Unrepeatable Read） —— 事务只会读到已提交的数据，但是一行数据读取两遍得到不同的结果。</li>
+<li>可重复读（Repeatable Read）：会出现幻读（Phantom Read） —— 一个事务执行两个相同的查询语句，得到的是两个不同的结果集（数量不同）。</li>
+<li>可串行化（Serializable）：可以找到一个事务串行执行的序列，其结果与事务并发执行的结果是一样的。</li>
+</ol>
+<h3 id="5-2-隔离级别的实现"><a href="#5-2-隔离级别的实现" class="headerlink" title="5.2 隔离级别的实现"></a>5.2 隔离级别的实现</h3><p>​    主要由三种机制实现，它们分别是（在十五章会进行详细介绍）：</p>
+<ul>
+<li>锁</li>
+<li>时间戳</li>
+<li>多版本和快照隔离</li>
+</ul>
 
             </div>
             <hr/>
@@ -667,33 +706,33 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/">
+                <a href="/2020/08/23/new%E5%92%8Cmalloc%E7%9A%84%E5%8C%BA%E5%88%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="数据库系统概念第十四章——事务">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="new和malloc的区别">
                         
-                        <span class="card-title">数据库系统概念第十四章——事务</span>
+                        <span class="card-title">new和malloc的区别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据库系统概念第十四章——事务1. 事务的概念​    事务（transaction）是数据库程序执行的单元。它满足ACID四个性质。
+                            一、前言​    本文转载自：https://www.cnblogs.com/ywliao/articles/8116622.html
+​    几个星期前去面试C++研发的实习岗位，面试官问了个问题：
 
-原子性（Atomicity）：事务中操作，要么都做，要么都不做。
-一致性（Consistency）：事
+new与malloc有什么区别？
+
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-23
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -702,16 +741,11 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/database/">
-                        <span class="chip bg-color">database</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
-                        <span class="chip bg-color">数据库系统概念</span>
+                    <a href="/tags/c/">
+                        <span class="chip bg-color">c++</span>
                     </a>
                     
                 </div>
@@ -976,7 +1010,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">65.5k</span>&nbsp;字
+                class="white-color">75.5k</span>&nbsp;字
             
             
             

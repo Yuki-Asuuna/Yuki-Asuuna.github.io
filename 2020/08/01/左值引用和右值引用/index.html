@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<meta name="generator" content="Hexo 4.1.1"><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -597,7 +597,7 @@ void swap_r(int & a, int & b)
 <p>运行结果如下：<br><img src="/2020/08/01/%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/1479140-20190314154839299-1163030150.png" alt="img"></p>
 <p>可以看到，只有在传入指针和传入引用时变量才真正交换。</p>
 <blockquote>
-<p>对<strong>直接传入参数</strong>和<strong>传入指针</strong>仍不理解的可以看这篇<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Bylight/p/10451598.html">博客</a>，在此不再描述。</p>
+<p>对<strong>直接传入参数</strong>和<strong>传入指针</strong>仍不理解的可以看这篇<a href="https://www.cnblogs.com/Bylight/p/10451598.html" target="_blank" rel="noopener">博客</a>，在此不再描述。</p>
 </blockquote>
 <h1 id="4-右值引用的用途"><a href="#4-右值引用的用途" class="headerlink" title="4.右值引用的用途"></a>4.右值引用的用途</h1><p>右值引用帮助我们实现以下两个技术：移动语义和完美转发。</p>
 <ul>
@@ -619,7 +619,7 @@ void swap(T& a,T& b)&#123;
 <p>问题一：如何将大象放入冰箱？<br>答案是众所周知的。首先你需要有一台特殊的冰箱，这台冰箱是为了装下大象而制造的。你打开冰箱门，将大象放入冰箱，然后关上冰箱门。</p>
 <p>问题二：如何将大象从一台冰箱转移到另一台冰箱？<br>普通解答：打开冰箱门，取出大象，关上冰箱门，打开另一台冰箱门，放进大象，关上冰箱门。<br>2B解答：在第二个冰箱中启动量子复制系统，克隆一只完全相同的大象，然后启动高能激光将第一个冰箱内的大象气化消失。<br>等等，这个2B解答听起来很耳熟，这不就是C++中要<strong>移动</strong>一个对象时所做的事情吗？</p>
 <p>“移动”，这是一个三岁小孩都明白的概念。将大象（资源）从一台冰箱（对象）<strong>移动</strong>到另一台冰箱，这个行为是如此自然，没有任何人会采用先复制大象，再销毁大象这样匪夷所思的方法。C++通过拷贝构造函数和拷贝赋值操作符为类设计了<strong>拷贝/复制</strong>的概念，但为了实现对资源的<strong>移动</strong>操作，调用者必须使用先复制、再析构的方式。否则，就需要自己实现移动资源的接口。</p>
-<p>作者：Tinro<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22111546/answer/30801982">https://www.zhihu.com/question/22111546/answer/30801982</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>作者：Tinro<br>链接：<a href="https://www.zhihu.com/question/22111546/answer/30801982" target="_blank" rel="noopener">https://www.zhihu.com/question/22111546/answer/30801982</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 </blockquote>
 <p>​    在swap这个例子中，我们想要做的只是把变量的所有权转交（即移交对象的指针直接指向原数据首地址即可），并不需要深拷贝（即向内存去申请额外的内存空间，然后再将指针指向的数据一个一个复制到新申请的空间中），而在老版的C++中，我们只能通过拷贝再析构这样的过程去移动对象。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">template <class T>
@@ -1135,7 +1135,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">65.5k</span>&nbsp;字
+                class="white-color">75.5k</span>&nbsp;字
             
             
             
