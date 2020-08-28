@@ -458,14 +458,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-27
+                    2020-08-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    2.6k
                 </div>
                 
 
@@ -488,8 +488,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="数据库系统概念第十五章——并发控制"><a href="#数据库系统概念第十五章——并发控制" class="headerlink" title="数据库系统概念第十五章——并发控制"></a>数据库系统概念第十五章——并发控制</h1><h2 id="1-基于锁的协议"><a href="#1-基于锁的协议" class="headerlink" title="1. 基于锁的协议"></a>1. 基于锁的协议</h2><h3 id="1-1-共享锁和排他锁"><a href="#1-1-共享锁和排他锁" class="headerlink" title="1.1 共享锁和排他锁"></a>1.1 共享锁和排他锁</h3><p>​    事务可以给某个数据项加锁，锁分为两种：共享锁（Shared）和排他锁（Exclusive）。</p>
-<p>​    共享锁（S锁）：如果事务$T_i$获得了数据项$Q$上的共享锁，那么$T_i$可读但不能写Q。</p>
-<p>​    排他锁（X锁）：如果事务$T_i$获得了数据项$Q$上的排他锁，那么$T_i$可读也可写Q。</p>
+<p>​    共享锁（S锁）：又被称为<u>读锁</u>，如果事务$T_i$获得了数据项$Q$上的共享锁，那么$T_i$可读但不能写Q。</p>
+<p>​    排他锁（X锁）：又被称为<u>写锁</u>，如果事务$T_i$获得了数据项$Q$上的排他锁，那么$T_i$可读也可写Q。</p>
 <p>​    注意！每个事务在对数据项操作前，都需要向<strong>并发控制管理器</strong>申请所需锁后，才能继续进行操作；如果申请失败，则会被阻塞。</p>
 <p>​    <strong>共享锁仅可以和共享锁共存</strong>，如果一个数据项被某个事务加了共享锁，那么其它事务也可以对它加共享锁，但不能加写锁（排他锁）；如果数据项被事务加了排他锁，那么其它事务不可以向其加任何锁（包括共享锁）。</p>
 <h3 id="1-2-什么是封锁协议？"><a href="#1-2-什么是封锁协议？" class="headerlink" title="1.2 什么是封锁协议？"></a>1.2 什么是封锁协议？</h3><p>​    封锁协议指的就是获得锁和释放锁的一系列规则。</p>
@@ -499,14 +499,15 @@
 <p>​    继续执行$T_3$，发现$T_4$对数据项$A$加了读锁，然而$T_3$要对$A$加写锁，这个请求也会被阻塞。</p>
 <p>​    从而两个事务形成了相互等待且无法推进的情形，产生了死锁。</p>
 <p>​    还有一种情况，如果一个事务想要申请对数据项$Q$的一个写锁，然而另一个事务获得了$Q$的读锁却因为死锁而不断回滚。这就导致前一个事务始终无法获得对$Q$的写锁，导致饥饿（Starvation）现象的发生。</p>
-<h3 id="1-4-两阶段封锁协议"><a href="#1-4-两阶段封锁协议" class="headerlink" title="1.4 两阶段封锁协议"></a>1.4 两阶段封锁协议</h3><p>​    两段封锁协议可以保证冲突可串行化（<strong>有可能出现死锁</strong>）。</p>
+<h3 id="1-4-两阶段封锁协议"><a href="#1-4-两阶段封锁协议" class="headerlink" title="1.4 两阶段封锁协议"></a>1.4 两阶段封锁协议</h3><p>​    两段封锁协议可以保证冲突可串行化（<strong>但有可能出现死锁</strong>）。</p>
 <p><img src="/2020/08/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source_posts\数据库第十五章笔记\2.png"></p>
 <p>​    第一个阶段称为增长阶段（Growing Phase）：事务可以获得锁，但不能释放锁。</p>
 <p>​    第二个阶段称为缩减阶段（Shrinking Phase）：事务可以释放锁，但不能获得锁。</p>
 <p>​    这两个阶段的拐点又被称为<strong>封锁点</strong>（Lock Point）。</p>
-<h4 id="1-4-1-严格两阶段封锁协议（Strict）"><a href="#1-4-1-严格两阶段封锁协议（Strict）" class="headerlink" title="1.4.1 严格两阶段封锁协议（Strict）"></a>1.4.1 严格两阶段封锁协议（Strict）</h4><p>​    严格的两阶段封锁协议可以避免<u>级联回滚</u>，事务持有的排他锁必须在事物提交后才可以释放。</p>
-<h4 id="1-4-2-严苛两阶段封锁协议（Rigorous）"><a href="#1-4-2-严苛两阶段封锁协议（Rigorous）" class="headerlink" title="1.4.2 严苛两阶段封锁协议（Rigorous）"></a>1.4.2 严苛两阶段封锁协议（Rigorous）</h4><p>​    严苛的两阶段封锁协议可以根据事物提交的顺序进行串行化，事务持有的所有锁都必须在事物提交后才可以释放。</p>
+<h4 id="1-4-1-严格两阶段封锁协议（Strict）"><a href="#1-4-1-严格两阶段封锁协议（Strict）" class="headerlink" title="1.4.1 严格两阶段封锁协议（Strict）"></a>1.4.1 严格两阶段封锁协议（Strict）</h4><p>​    严格的两阶段封锁协议可以避免<u>级联回滚</u>，<strong>事务持有的排他锁必须在事物提交后才可以释放</strong>。</p>
 <p>​    大多数的数据库系统都采用这个协议。</p>
+<h4 id="1-4-2-严苛两阶段封锁协议（Rigorous）"><a href="#1-4-2-严苛两阶段封锁协议（Rigorous）" class="headerlink" title="1.4.2 严苛两阶段封锁协议（Rigorous）"></a>1.4.2 严苛两阶段封锁协议（Rigorous）</h4><p>​    严苛的两阶段封锁协议可以根据事物提交的顺序进行串行化，<strong>事务持有的锁都必须在事物提交后才可以释放</strong>。</p>
+<p>​    保证了可恢复性，避免级联回滚。</p>
 <h4 id="1-4-3-锁的转换"><a href="#1-4-3-锁的转换" class="headerlink" title="1.4.3 锁的转换"></a>1.4.3 锁的转换</h4><p>​    在增长阶段，允许将读锁升级为写锁。</p>
 <p>​    在缩减阶段，允许将写锁降级为读锁。</p>
 <h3 id="1-5-读写流程"><a href="#1-5-读写流程" class="headerlink" title="1.5 读写流程"></a>1.5 读写流程</h3><p>​    数据库管理人员不需要直接对锁进行操作，这些工作都由并发控制管理器（Lock Manager）实现。</p>
@@ -555,9 +556,11 @@
 <p>​        若$TS(T_i)&lt;R-timestamp(Q)$，则说明$T_i$产生的$Q$值是先前所需要的值，且系统已假定该值不会产生。因此$write$操作被拒绝，$T_i$回滚。</p>
 <p>​        若$TS(T_i)&lt;W-timestamp(Q)$，则$T_i$试图写入的$Q$已经过期。因此$write$被拒绝，$T_i$回滚。</p>
 <p>​        其他情况，执行$write$操作，并将$W-timestamp(Q)$设置为$TS(T_i)$。</p>
+<p>​    <strong>简而言之，如果一个事务发现自己做读/写操作时，其它事务对数据项已经有了更新，那么就需要进行回滚。</strong></p>
+<p>​    回滚时需要更新时间戳，否则会无限回滚。</p>
 <p>​    时间戳协议保证了冲突可串行化（不加锁），也保证了死锁不会产生，但可能产生不可恢复调度。也可能导致事务被饿死。</p>
 <p>​    保证调度的可恢复性有三种策略，这里不详细展开。</p>
-<h3 id="Thomas写规则"><a href="#Thomas写规则" class="headerlink" title="Thomas写规则"></a>Thomas写规则</h3><p>​    它是对原始TSO协议的一种优化。当事务发出$write(Q)$请求时，如果$TS(T_i)&lt;W-timestamp(Q)$，我们可以不必去rollback，而是忽略这个操作。这样可以提高并发程度。</p>
+<h3 id="优化：Thomas写规则"><a href="#优化：Thomas写规则" class="headerlink" title="优化：Thomas写规则"></a>优化：Thomas写规则</h3><p>​    它是对原始TSO协议的一种优化。当事务发出$write(Q)$请求时，如果$TS(T_i)&lt;W-timestamp(Q)$，也就是说我们要写的值已经被其它事务覆盖了，不必rollback，而是忽略这个写$write(Q)$操作，去执行后面的语句。这样可以提高并发程度。</p>
 <h2 id="5-多版本机制（MVCC）"><a href="#5-多版本机制（MVCC）" class="headerlink" title="5. 多版本机制（MVCC）"></a>5. 多版本机制（MVCC）</h2><h3 id="5-1-分类"><a href="#5-1-分类" class="headerlink" title="5.1 分类"></a>5.1 分类</h3><ul>
 <li>多版本时间戳排序</li>
 <li>多版本二级封锁协议</li>
@@ -1013,7 +1016,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">75.5k</span>&nbsp;字
+                class="white-color">76.6k</span>&nbsp;字
             
             
             

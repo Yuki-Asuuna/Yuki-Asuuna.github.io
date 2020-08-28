@@ -458,14 +458,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-27
+                    2020-08-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    1.8k
                 </div>
                 
 
@@ -513,8 +513,8 @@
 <p>​    这两个调度是<strong>串行的（Serial）</strong>，且<u>同一事务的指令紧挨在一起</u>，下图同理也是一个串行调度。</p>
 <img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/3.png" alt="Schedule 2" style="zoom:67%;">
 
-<p>​    如下图，该调度不是串行的，但它和<code>Schedule 1</code>是<u>等价的</u>。</p>
-<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/4.png" alt="Schedule 4" style="zoom:67%;">
+<p>​    如下图，该调度不是串行（Serial）的，但它和<code>Schedule 1</code>是<u>等价的</u>，它被称为“可串行化的“。</p>
+<img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/4.png" alt="Schedule 3" style="zoom:67%;">
 
 <p>​    如下图，该调度既不是串行的，也不与<code>Schedule 1</code>等价（因为破坏了一致性约束）。</p>
 <img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/5.png" alt="Schedule 4" style="zoom:67%;">
@@ -531,7 +531,7 @@
 </ol>
 <p>​        也就是说，当$I$和$J$是不同事务在相同数据项的操作，并且其中有一个$write$指令，那么$I$与$J$是冲突的。</p>
 <p>​        $S$通过交换两条不冲突的指令生成的新调度$S’$与$S$等价。</p>
-<p>​        注意！这里“交换“的意思是指：交换两条指令执行的相对顺序，而不是直接交换两条指令。<br><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/6.png" style="zoom:67%;"></p>
+<p>​        注意！这里“交换“的意思是指：交换两条指令执行的相对顺序，<strong>而不是直接交换两条指令</strong>。<br><img src="/2020/08/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E7%AC%94%E8%AE%B0/6.png" style="zoom:67%;"></p>
 <p>​        如上图，$Schedule\space 3$和$Schedule\space 6$是等价的。</p>
 <p>​        首先，$T_1$中的$read(B)$与$T_2$中的$read(A),write(A),read(B)$都是不冲突的，但这并不意味着可以将这三条语句直接放在$T_1$的$read(B)$前执行，因为$T_2$中的$read(B)$与$T_1$中的$write(B)$是冲突的，所以不可以交换执行相对顺序。</p>
 <p>​        但是，我们可以交换$T_2$中$read(A),write(A)$与$T_1$中$read(B),write(B)$的执行顺序，因为它们都不互相冲突，可以随意调换执行顺序，从而得到$Schedule\space 6$。</p>
@@ -560,7 +560,7 @@
 <ol>
 <li>读未提交（Read Uncommitted）：会出现脏读（Dirty Read）—— 一个事务会读到另一个事务的中间状态。</li>
 <li>读已提交（Read Committed）：会出现不可重复读（Unrepeatable Read） —— 事务只会读到已提交的数据，但是一行数据读取两遍得到不同的结果。</li>
-<li>可重复读（Repeatable Read）：会出现幻读（Phantom Read） —— 一个事务执行两个相同的查询语句，得到的是两个不同的结果集（数量不同）。</li>
+<li>可重复读（Repeatable Read）：会出现幻读（Phantom Read） —— 只允许读取已提交的数据且事务读取一个数据项期间，其它事务不得更新该数据；一个事务执行两个相同的查询语句，由于插入或删除记录，得到的是两个不同的结果集（可能是数量不同）。</li>
 <li>可串行化（Serializable）：可以找到一个事务串行执行的序列，其结果与事务并发执行的结果是一样的。</li>
 </ol>
 <h3 id="5-2-隔离级别的实现"><a href="#5-2-隔离级别的实现" class="headerlink" title="5.2 隔离级别的实现"></a>5.2 隔离级别的实现</h3><p>​    主要由三种机制实现，它们分别是（在十五章会进行详细介绍）：</p>
@@ -1010,7 +1010,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">75.5k</span>&nbsp;字
+                class="white-color">76.6k</span>&nbsp;字
             
             
             

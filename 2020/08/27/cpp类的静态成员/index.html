@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="c++类的静态成员, SYH的博客">
+    <meta name="keywords" content="C++类的静态成员, SYH的博客">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>c++类的静态成员 | SYH的博客</title>
+    <title>C++类的静态成员 | SYH的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">c++类的静态成员</h1>
+                    <h1 class="description center-align post-title">C++类的静态成员</h1>
                 </div>
             </div>
         </div>
@@ -429,9 +429,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/c/">
+                                <span class="chip bg-color">c++</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -457,14 +461,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    840
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -479,7 +483,115 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="C-类的静态成员"><a href="#C-类的静态成员" class="headerlink" title="C++类的静态成员"></a>C++类的静态成员</h1><h2 id="1-静态成员变量"><a href="#1-静态成员变量" class="headerlink" title="1. 静态成员变量"></a>1. 静态成员变量</h2><p>​    我们可以使用 <strong>static</strong> 关键字来把类成员定义为静态的。当我们声明类的成员为静态时，这意味着无论创建多少个类的对象，<strong>静态成员都只有一个副本</strong>。</p>
+<p>​    <strong>静态成员在类的所有对象中是共享的</strong>。如果不存在其他的初始化语句，在创建第一个对象时，所有的静态数据都会被初始化为零。</p>
+<p>​    我们不能把静态成员的初始化放置在类的定义中，但是可以在类的外部通过使用范围解析运算符 <strong>::</strong> 来重新声明静态变量从而对它进行初始化，如下面的实例所示。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Box</span>
+<span class="token punctuation">{</span>
+   <span class="token keyword">public</span><span class="token operator">:</span>
+      <span class="token keyword">static</span> <span class="token keyword">int</span> objectCount<span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 构造函数定义</span>
+      <span class="token function">Box</span><span class="token punctuation">(</span><span class="token keyword">double</span> l<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token keyword">double</span> b<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token keyword">double</span> h<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+         cout <span class="token operator">&lt;&lt;</span><span class="token string">"Constructor called."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+         length <span class="token operator">=</span> l<span class="token punctuation">;</span>
+         breadth <span class="token operator">=</span> b<span class="token punctuation">;</span>
+         height <span class="token operator">=</span> h<span class="token punctuation">;</span>
+         <span class="token comment" spellcheck="true">// 每次创建对象时增加 1</span>
+         objectCount<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">double</span> <span class="token function">Volume</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> length <span class="token operator">*</span> breadth <span class="token operator">*</span> height<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+   <span class="token keyword">private</span><span class="token operator">:</span>
+      <span class="token keyword">double</span> length<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// 长度</span>
+      <span class="token keyword">double</span> breadth<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 宽度</span>
+      <span class="token keyword">double</span> height<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// 高度</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 初始化类 Box 的静态成员</span>
+<span class="token keyword">int</span> Box<span class="token operator">::</span>objectCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   Box <span class="token function">Box1</span><span class="token punctuation">(</span><span class="token number">3.3</span><span class="token punctuation">,</span> <span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">1.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 声明 box1</span>
+   Box <span class="token function">Box2</span><span class="token punctuation">(</span><span class="token number">8.5</span><span class="token punctuation">,</span> <span class="token number">6.0</span><span class="token punctuation">,</span> <span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 声明 box2</span>
+
+   <span class="token comment" spellcheck="true">// 输出对象的总数</span>
+   cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Total objects: "</span> <span class="token operator">&lt;&lt;</span> Box<span class="token operator">::</span>objectCount <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code>Constructor called.
+Constructor called.
+Total objects: 2</code></pre>
+<p>​    我们在类<code>Box</code>中创建了静态成员<code>objectCount</code>，所有的类创建的对象都共享这个变量。即使不创建对象，我们也可以访问这个静态成员。</p>
+<h2 id="2-静态成员函数"><a href="#2-静态成员函数" class="headerlink" title="2. 静态成员函数"></a>2. 静态成员函数</h2><p>​    如果把函数成员声明为静态的，就可以把函数与类的任何特定对象独立开来。静态成员函数即使在类对象不存在的情况下也能被调用，<strong>静态函数</strong>只要使用类名加范围解析运算符 <strong>::</strong> 就可以访问。</p>
+<p>​    <strong>静态成员函数只能访问静态成员数据、其他静态成员函数和类外部的其他函数。</strong></p>
+<p>​    静态成员函数有一个类范围，他们不能访问类的 this 指针。您可以使用静态成员函数来判断类的某些对象是否已被创建。</p>
+<blockquote>
+<p><strong>静态成员函数与普通成员函数的区别：</strong></p>
+<ul>
+<li>静态成员函数没有 this 指针，只能访问静态成员（包括静态成员变量和静态成员函数）。</li>
+<li>普通成员函数有 this 指针，可以访问类中的任意成员；而静态成员函数没有 this 指针。</li>
+</ul>
+</blockquote>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Box</span>
+<span class="token punctuation">{</span>
+   <span class="token keyword">public</span><span class="token operator">:</span>
+      <span class="token keyword">static</span> <span class="token keyword">int</span> objectCount<span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 构造函数定义</span>
+      <span class="token function">Box</span><span class="token punctuation">(</span><span class="token keyword">double</span> l<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token keyword">double</span> b<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token keyword">double</span> h<span class="token operator">=</span><span class="token number">2.0</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+         cout <span class="token operator">&lt;&lt;</span><span class="token string">"Constructor called."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+         length <span class="token operator">=</span> l<span class="token punctuation">;</span>
+         breadth <span class="token operator">=</span> b<span class="token punctuation">;</span>
+         height <span class="token operator">=</span> h<span class="token punctuation">;</span>
+         <span class="token comment" spellcheck="true">// 每次创建对象时增加 1</span>
+         objectCount<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">double</span> <span class="token function">Volume</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> length <span class="token operator">*</span> breadth <span class="token operator">*</span> height<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> objectCount<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+   <span class="token keyword">private</span><span class="token operator">:</span>
+      <span class="token keyword">double</span> length<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// 长度</span>
+      <span class="token keyword">double</span> breadth<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 宽度</span>
+      <span class="token keyword">double</span> height<span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// 高度</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 初始化类 Box 的静态成员</span>
+<span class="token keyword">int</span> Box<span class="token operator">::</span>objectCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+
+   <span class="token comment" spellcheck="true">// 在创建对象之前输出对象的总数</span>
+   cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Inital Stage Count: "</span> <span class="token operator">&lt;&lt;</span> Box<span class="token operator">::</span><span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+   Box <span class="token function">Box1</span><span class="token punctuation">(</span><span class="token number">3.3</span><span class="token punctuation">,</span> <span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">1.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 声明 box1</span>
+   Box <span class="token function">Box2</span><span class="token punctuation">(</span><span class="token number">8.5</span><span class="token punctuation">,</span> <span class="token number">6.0</span><span class="token punctuation">,</span> <span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 声明 box2</span>
+
+   <span class="token comment" spellcheck="true">// 在创建对象之后输出对象的总数</span>
+   cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Final Stage Count: "</span> <span class="token operator">&lt;&lt;</span> Box<span class="token operator">::</span><span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    在类<code>Box</code>中定义了静态成员函数<code>getCount()</code>，它只可以访问同为静态成员变量的<code>objectCount</code>。</p>
+
             </div>
             <hr/>
 
@@ -504,7 +616,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Yuki-Asuuna.github.io/2020/08/27/c-%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/">http://Yuki-Asuuna.github.io/2020/08/27/c-%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/</a>
+                    <a href="http://Yuki-Asuuna.github.io/2020/08/27/cpp%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/">http://Yuki-Asuuna.github.io/2020/08/27/cpp%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -541,7 +653,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/c/">
+                                    <span class="chip bg-color">c++</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -613,19 +729,20 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2020/08/27/c-%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/">
+                <a href="/2020/08/27/cpp%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="c++类的静态成员">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="C++类的静态成员">
                         
-                        <span class="card-title">c++类的静态成员</span>
+                        <span class="card-title">C++类的静态成员</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            C++类的静态成员1. 静态成员变量​    我们可以使用 static 关键字来把类成员定义为静态的。当我们声明类的成员为静态时，这意味着无论创建多少个类的对象，静态成员都只有一个副本。
+​    静态成员在类的所有对象中是共享的。如果不
                         
                     </div>
                     <div class="publish-info">
@@ -641,6 +758,14 @@
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/c/">
+                        <span class="chip bg-color">c++</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -894,7 +1019,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">75.5k</span>&nbsp;字
+                class="white-color">76.6k</span>&nbsp;字
             
             
             
