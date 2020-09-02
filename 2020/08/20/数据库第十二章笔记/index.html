@@ -458,14 +458,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-23
+                    2020-08-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    1.9k
                 </div>
                 
 
@@ -516,16 +516,17 @@
 <p>​    块嵌套循环连接是嵌套循环连接的优化版本，它不以元组作为单位，而将数据块作为单位。</p>
 <p>​    第一层循环表$r$所有块，第二层循环表$s$所有块，然后再对块中的所有元组进行循环比较。</p>
 <h4 id="效率分析-1"><a href="#效率分析-1" class="headerlink" title="效率分析"></a>效率分析</h4><p>​    在最坏情况下，需要$b_r*b_s+b_r$次块传输，加上$2b_r$次磁盘搜索。</p>
-<p>​    在最好情况下，需要$b_r+b_s$次块传输，加上$2b_r$次磁盘搜索。</p>
+<p>​    在最好情况下，需要$b_r+b_s$次块传输，加上$2$次磁盘搜索。</p>
 <h3 id="5-3-索引嵌套循环连接"><a href="#5-3-索引嵌套循环连接" class="headerlink" title="5.3 索引嵌套循环连接"></a>5.3 索引嵌套循环连接</h3><p>​    如果做等值（范围）查询且连接条件上的属性有索引。那么通过索引，可以优化掉文件搜索那一部分的开销。</p>
 <h4 id="效率分析-2"><a href="#效率分析-2" class="headerlink" title="效率分析"></a>效率分析</h4><p>​    在最坏情况下，<strong>时间</strong>开销为$b_r(t_T+t_S)+n_r*c$，其中$c$表示索引条件下查找的开销。</p>
 <h3 id="5-4-归并连接"><a href="#5-4-归并连接" class="headerlink" title="5.4 归并连接"></a>5.4 归并连接</h3><p>​    只能用于等值连接（自然连接），它的思想是按照合并的属性进行排序，然后按照归并排序的算法进行合并。</p>
 <p><img src="/2020/08/20/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E7%AC%94%E8%AE%B0/4.png"></p>
 <h4 id="效率分析（假设关系可以被放在内存中）"><a href="#效率分析（假设关系可以被放在内存中）" class="headerlink" title="效率分析（假设关系可以被放在内存中）"></a>效率分析（假设关系可以被放在内存中）</h4><p>​    $b_r+b_s$次块转移，$\lceil b_r/b_b\rceil+\lceil b_s/b_b\rceil$次磁盘搜索+排序开销，其中$b_b$表示为每个关系分配的缓冲块数。</p>
+<p>​    在缓冲区空间有富余的情况下，尽可能地给关系分配更多的块数可以降低磁盘搜索开销在总开销中的占比。（磁盘搜索的时间是磁盘传输时间的40倍）</p>
 <h4 id="变种算法（Hybrid-merge-join）"><a href="#变种算法（Hybrid-merge-join）" class="headerlink" title="变种算法（Hybrid merge-join）"></a>变种算法（Hybrid merge-join）</h4><p>​    针对一个关系有序，另一个关系无序却有索引的高效算法。</p>
 <h3 id="5-3-Hash连接"><a href="#5-3-Hash连接" class="headerlink" title="5.3 Hash连接"></a>5.3 Hash连接</h3><p>​    只能用于等值连接（自然连接），速度非常快（在MYSQL8.0中被引入）。</p>
 <p>​    思路很简单，比如我们要连接两个关系<code>R</code>，<code>S</code>。首先，我们对<code>R</code>上要连接的关键字进行hash，创建一个<code>hash table</code>。然后对于关系<code>S</code>中的每个元组上的待连接关键字都进行hash，并和<code>hash table</code>做比较，找到hash值相等的桶（hash值相等并不意味着属性值一定相等），之后进行逐一比较即可。</p>
-<p>​    假如关系很大，整个<code>hash table</code>无法放在内存里，那么我们就需要将原关系进行切块划分，使切下来的部分能够恰好放在内存中。    </p>
+<p>​    假如关系很大，整个<code>hash table</code>无法放在内存里，那么我们就需要将原关系进行切块划分（partition），使切下来的部分能够恰好放在内存中。    </p>
 <h4 id="效率分析-3"><a href="#效率分析-3" class="headerlink" title="效率分析"></a>效率分析</h4><p>​    最好情况下（hash表均能被放入内存），开销为$b_r+b_s$</p>
 <p>​    非递归分割情况下，$3(b_r+b_s)+4*n_h$次块传输，$2(\lceil b_r/b_b\rceil)+\lceil b_s/b_b\rceil$次磁盘搜寻</p>
 <p>​    递归分隔情况下，$2(b_r+b_s)\lceil log_{\lfloor M/b_b\rfloor-1}(b_s/M)+b_r+b_s$次块传输，$2(\lceil b_r/b_b\rceil +\lceil b_s/b_b\rceil)\lceil log_{\lfloor M/b_b\rfloor -1}(b_s/M)$次磁盘搜寻</p>
@@ -1004,7 +1005,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">76.6k</span>&nbsp;字
+                class="white-color">81.4k</span>&nbsp;字
             
             
             
