@@ -458,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-16
+                    2020-09-02
                 </div>
                 
 
@@ -510,13 +510,13 @@
 </ul>
 <p>​        有没有发现，函数依赖的定义与超键的定义非常类似？</p>
 <p>​        超键的定义是：假设$K$是一个超键，那么$K$可以唯一标识关系模式中所有的元组。</p>
-<p>​        <strong>超键的定义只是函数依赖定义的一种特殊形式</strong>。因为超键要唯一确定“所有属性上的”所有元组，而函数依赖则可以是“部分属性“上的所有元组。</p>
-<h3 id="2-2-函数依赖的闭包F"><a href="#2-2-函数依赖的闭包F" class="headerlink" title="2.2 函数依赖的闭包F^+^"></a>2.2 函数依赖的闭包F^+^</h3><p>​        我们假设集合$F$存储所有函数依赖，那么通过一系列推导后，函数依赖所能形成的集合$F^+$被称为<strong>函数依赖的闭包</strong>，用符号$F^+$来表示。</p>
+<p>​        <strong>超键的定义只是函数依赖定义的一种特殊形式</strong>。因为超键要唯一确定“所有属性上的”所有元组，而函数依赖则可以是<u>“部分属性“</u>上的所有元组。</p>
+<h3 id="2-2-函数依赖的闭包F"><a href="#2-2-函数依赖的闭包F" class="headerlink" title="2.2 函数依赖的闭包F^+^"></a>2.2 函数依赖的闭包F^+^</h3><p>​        我们假设集合$F$存储所有函数依赖，那么通过一系列推导（Armstrong公理）后，函数依赖所能形成的集合$F^+$被称为<strong>函数依赖的闭包</strong>，用符号$F^+$来表示。</p>
 <p>​        比如说，如果$A\rightarrow B,B\rightarrow C$成立，那么我们可以推导出$A\rightarrow C$成立，那么该函数依赖属于集合$F^+$。</p>
-<h3 id="2-3-候选键的函数依赖"><a href="#2-3-候选键的函数依赖" class="headerlink" title="2.3 候选键的函数依赖"></a>2.3 候选键的函数依赖</h3><p>​        候选键必须满足$K\rightarrow R$且不存在$\alpha \subset K$使得$\alpha \rightarrow R$。也就是说候选键必须包含的属性必须”最简”，且能够推出$R$的所有属性。</p>
+<h3 id="2-3-候选键的函数依赖"><a href="#2-3-候选键的函数依赖" class="headerlink" title="2.3 候选键的函数依赖"></a>2.3 候选键的函数依赖</h3><p>​        候选键必须满足$K\rightarrow R$且不存在$\alpha \subset K$使得$\alpha \rightarrow R$。也就是说候选键必须包含的属性必须”最简”，且能够推出$R$的所有属性（是一个超键）。</p>
 <h3 id="2-4-平凡（trivial）函数依赖"><a href="#2-4-平凡（trivial）函数依赖" class="headerlink" title="2.4 平凡（trivial）函数依赖"></a>2.4 平凡（trivial）函数依赖</h3><p>​        平凡函数依赖是指对于一个关系的所有实例，函数依赖都成立。</p>
 <p>​        比如：$ID,name\rightarrow ID$、$name\rightarrow name$</p>
-<p>​        更一般地，如果$\alpha \rightarrow \beta$是平凡的，那么$\beta \rightarrow \alpha$</p>
+<p>​        更一般地，如果$\alpha \rightarrow \beta$是平凡的，那么$\beta \rightarrow \alpha$。</p>
 <h3 id="2-5-用函数依赖去表示无损分解"><a href="#2-5-用函数依赖去表示无损分解" class="headerlink" title="2.5 用函数依赖去表示无损分解"></a>2.5 用函数依赖去表示无损分解</h3><p>​        假设$R$是一个关系模式，$R_1$和$R_2$构成$R$的一个分解，即$R=R_1 \cup R_2$。</p>
 <p>​        如果$R_1$和$R_2$是$R$的一个无损分解，那么以下两个式子中<u>至少有一个成立</u>：</p>
 <ol>
@@ -526,10 +526,10 @@
 <p>翻译过来就是，$R_1$和$R_2$的公共属性所组成的键必须是$R_1$或$R_2$的超键。</p>
 </li>
 </ol>
-<h4 id="2-5-1-实例"><a href="#2-5-1-实例" class="headerlink" title="2.5.1 实例"></a>2.5.1 实例</h4><p>$$<br>R=(A,B,C)\<br>F={A\rightarrow B,B\rightarrow C}\<br>R_1=(A,B),R_2=(B,C)\<br>R_1\cap R_2 ={B}\<br>R_1\cap R_2 \rightarrow {B,C}\<br>\therefore R_1\cap R_2是关系R_2的超键<br>$$</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>$$<br>R=(A,B,C)\<br>F={A\rightarrow B,B\rightarrow C}\<br>R_1=(A,B),R_2=(B,C)\<br>R_1\cap R_2 ={B}\<br>R_1\cap R_2 \rightarrow {B,C}\<br>\therefore R_1\cap R_2是关系R_2的超键\<br>\therefore R_1,R_2是关系R的无损分解<br>$$</p>
 <h3 id="2-6-函数依赖保持的分解（Dependency-Preservation）"><a href="#2-6-函数依赖保持的分解（Dependency-Preservation）" class="headerlink" title="2.6 函数依赖保持的分解（Dependency Preservation）"></a>2.6 函数依赖保持的分解（Dependency Preservation）</h3><p>​        有时候我们希望关系模式在分解后，所有函数依赖能够在<strong>一张表</strong>内被检查，而不是要跨关系模式join后才能检查。</p>
 <p>​        我们称这样的分解为<u>函数依赖保持的分解</u>。</p>
-<h4 id="2-6-1-实例"><a href="#2-6-1-实例" class="headerlink" title="2.6.1 实例"></a>2.6.1 实例</h4><p>​        假设有关系模式$dept_advisor(s_ID,i_ID,dept_name)$</p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><p>​        假设有关系模式$dept_advisor(s_ID,i_ID,dept_name)$</p>
 <p>​        其上的函数依赖为：$i_ID \rightarrow dept_name$，$(s_ID,dept_name) \rightarrow i_ID$</p>
 <p>​        无论我们怎么分解$dept_advisor$，2条函数依赖都不能在一张表内被表示。</p>
 <p>​        </p>
@@ -543,13 +543,13 @@
 <li><strong>实例</strong></li>
 </ul>
 <p>​    假设有关系模式$in_dep(ID,name,salary,dept_name,building,budget)$，那么这个关系模式不满足BCNF。</p>
-<p>​    因为对于函数依赖$dept_name \rightarrow building,budget$，$dept_name$不是超键。</p>
+<p>​    因为对于函数依赖$dept_name \rightarrow building,budget$，$dept_name$不是超键，该函数依赖也不是平凡的函数依赖。</p>
 <h4 id="3-1-2-将关系模式分解为BCNF"><a href="#3-1-2-将关系模式分解为BCNF" class="headerlink" title="3.1.2 将关系模式分解为BCNF"></a>3.1.2 将关系模式分解为BCNF</h4><p>​        <strong>假设$R$不满足BCNF</strong>，同时假设$\alpha \rightarrow \beta$是违反BCNF的函数依赖。</p>
 <p>​        那么我们可以将$R$分解为：$\alpha \cup \beta$和$R-(\beta - \alpha)$</p>
 <ul>
 <li><p><strong>实例</strong></p>
 <p>还是上面那个例子，$\alpha = (dept_name),\beta = (building,budget)$</p>
-<p>那么$\alpha \cup \beta = R_1(dept_name,building,budget)$，$R-(\beta - \alpha) = R_2(building,budget)$</p>
+<p>那么$\alpha \cup \beta = R_1(dept_name,building,budget)$，$R-(\beta - \alpha) = R_2(ID,name,salary,dept_name)$</p>
 </li>
 </ul>
 <ul>
@@ -607,7 +607,7 @@
 </tr>
 </tbody></table>
 <p>​    通过观察我们发现，这个实例出现了从$L-&gt;K$的冗余，同时表中出现了空值<code>null</code>。</p>
-<h4 id="3-2-3-3NF的优点"><a href="#3-2-3-3NF的优点" class="headerlink" title="3.2.3 3NF的优点"></a>3.2.3 3NF的优点</h4><p>​    3NF可以帮助我们实现函数依赖保持的分解，而BCNF就很困难。</p>
+<h4 id="3-2-3-3NF的优点"><a href="#3-2-3-3NF的优点" class="headerlink" title="3.2.3 3NF的优点"></a>3.2.3 3NF的优点</h4><p>​    3NF可以帮助我们<strong>实现函数依赖保持的分解</strong>，而BCNF就很困难。</p>
 <h2 id="4-函数依赖理论"><a href="#4-函数依赖理论" class="headerlink" title="4. 函数依赖理论"></a>4. 函数依赖理论</h2><p>​    我们之前在2.2中提到了函数依赖的闭包$F^+$，是指将函数依赖集上做推导所得到的闭集，那么这里讨论推导规则。</p>
 <h3 id="4-1-Armstrong公理"><a href="#4-1-Armstrong公理" class="headerlink" title="4.1 Armstrong公理"></a>4.1 Armstrong公理</h3><ol>
 <li>自反律：若$\beta \subseteq \alpha$，则$\alpha \rightarrow \beta$成立，其中$\alpha,\beta$是属性集</li>
@@ -646,7 +646,7 @@
 </li>
 </ul>
 <h4 id="4-3-1-求解无关属性"><a href="#4-3-1-求解无关属性" class="headerlink" title="4.3.1 求解无关属性"></a>4.3.1 求解无关属性</h4><h5 id="4-3-1-1-左侧无关属性"><a href="#4-3-1-1-左侧无关属性" class="headerlink" title="4.3.1.1 左侧无关属性"></a>4.3.1.1 左侧无关属性</h5><p>​    假设有函数依赖$\alpha \rightarrow \beta$，我们判断属性$A$（$A\in \alpha$）是否是无关的：</p>
-<p>​    令$\gamma = \alpha -{A}$，判断$\gamma \rightarrow \beta$是否能<strong>被$F$推出</strong>，注意这里不修改$F$。（这里就用到属性集的闭包判断函数依赖成立的方法了，先求出$\gamma^+$，然后判断$\beta$是否属于$\gamma^+$），如果能，说明属性$A$是一个无关属性。</p>
+<p>​    令$\gamma = \alpha -{A}$，判断$\gamma \rightarrow \beta$是否能<strong>被$F$推出</strong>，<strong>注意！</strong>这里不修改$F$。（这里就用到属性集的闭包判断函数依赖成立的方法了，先求出$\gamma^+$，然后判断$\beta$是否属于$\gamma^+$），如果能，说明属性$A$是一个无关属性。</p>
 <h5 id="4-3-1-2-右侧无关属性"><a href="#4-3-1-2-右侧无关属性" class="headerlink" title="4.3.1.2 右侧无关属性"></a>4.3.1.2 右侧无关属性</h5><p>​    假设有函数依赖$\alpha \rightarrow \beta$，我们判断属性$A$（$A\in \beta$）是否是无关的：</p>
 <p>​    令$F’=(F-{\alpha \rightarrow \beta})\cup {\alpha\rightarrow (\beta -A)}$，判断$\alpha^+$是否包含属性$A$，如果包含，说明$A$是无关的。</p>
 <p>​    相当于把函数依赖右侧的$A$去掉，然后再求$\alpha^+$</p>
@@ -683,11 +683,11 @@
 <p>​    简单用文字描述一下这个算法：</p>
 <ol>
 <li>判断$R$是否满足BCNF（一般肯定是不满足的），然后利用Simple Test去找到违反BCNF的那条函数依赖$\alpha \rightarrow \beta$</li>
-<li>然后将原来的$R$分解为$(\alpha,\beta)$和$(R-\beta)$，比如说$R(ABCDE)$假设$B\rightarrow D$违反了BCNF，那么将$R$分解为$R_1(BD)$、$R_2(ABCE)$</li>
+<li>然后将原来的$R$分解为$(\alpha,\beta)$和$(R-(\alpha-\beta))$，比如说$R(ABCDE)$假设$B\rightarrow D$违反了BCNF，那么将$R$分解为$R_1(BD)$、$R_2(ABCE)$</li>
 <li>接下来判断$R_1,R_2$是否满足BCNF（判断的方法不可以用Simple Test，而是要去枚举$R_i$每个子集，然后判断其每个属性集闭包$\alpha^+$是否覆盖$R_i$或者不包含$R_i-\alpha$以外的其它属性）</li>
 <li>如果满足，则不用分解了；如果不满足，则继续分解，直到所有分解出来的关系都满足BCNF。</li>
 </ol>
-<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>已知$R=(ABCDE)$，其函数依赖集为${A\rightarrow BC,CD\rightarrow E,B\rightarrow D,E\rightarrow A}$，将其分解为BCNF。</p>
+<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h4><p>已知$R=(ABCDE)$，其函数依赖集为${A\rightarrow BC,CD\rightarrow E,B\rightarrow D,E\rightarrow A}$，将其分解为BCNF。</p>
 <p>首先用Simple Test，发现依赖$A\rightarrow BC$违反了BCNF。</p>
 <p>因此将$R$分解为$R_1(ABC),R_2(ADE)$。</p>
 <p>接下来判断$R_1$是否满足BCNF，我们去枚举$ABC$所有的8个子集：</p>
@@ -1153,7 +1153,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">81.4k</span>&nbsp;字
+                class="white-color">91.6k</span>&nbsp;字
             
             
             

@@ -458,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-31
+                    2020-10-01
                 </div>
                 
 
@@ -520,7 +520,7 @@
 <p>​    即时修改是指：写日志的操作立刻生效，产生一条记录就将其写到磁盘中。</p>
 <p>​    延迟修改与即时修改相反。</p>
 <p>​    <strong>写日志遵循一个原则（WAL）：日志记录先于实际执行。（先记账再购买）</strong></p>
-<img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source\_posts\数据库第十六章笔记\1.png" style="zoom:50%;">
+<img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/1.png" style="zoom:50%;">
 
 <h4 id="3-1-2-恢复"><a href="#3-1-2-恢复" class="headerlink" title="3.1.2 恢复"></a>3.1.2 恢复</h4><h5 id="撤销与重做操作"><a href="#撤销与重做操作" class="headerlink" title="撤销与重做操作"></a>撤销与重做操作</h5><p>​    恢复操作有两个分别是<code>undo</code>（撤销）和<code>redo</code>（重做）。</p>
 <hr>
@@ -530,7 +530,7 @@
 <p>​    $redo(T_i)$表示将事务$T_i$中所有数据项都更新到新值。这一过程中没有日志记录。</p>
 <h5 id="恢复流程"><a href="#恢复流程" class="headerlink" title="恢复流程"></a>恢复流程</h5><p>​    如果在日志中没有$&lt;T_i\space commit&gt;$或$&lt;T_i\space abort&gt;$，那么采用$undo(T_i)$操作。</p>
 <p>​    如果在日志中有$&lt;T_i\space commit&gt;$或$&lt;T_i\space abort&gt;$，那么采用$redo(T_i)$操作。</p>
-<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source\_posts\数据库第十六章笔记\2.png" style="zoom: 67%;">
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/2.png" style="zoom: 67%;">
 
 <p>​    </p>
 <p>​    例如以上3个情况要进行恢复：</p>
@@ -540,7 +540,7 @@
 <li>对于(c)，找到了$T_1,T_0$的commit记录，因此对两者都做<code>redo</code>操作。</li>
 </ul>
 <h4 id="3-1-3-恢复点（checkpoint）"><a href="#3-1-3-恢复点（checkpoint）" class="headerlink" title="3.1.3 恢复点（checkpoint）"></a>3.1.3 恢复点（checkpoint）</h4><p>​    如果每次都根据日志对所有事务进行恢复会很慢，因此可以在日志中设置几个checkpoint，恢复的时候找到最近的检查点，进行撤销（undo）或重做（redo）。</p>
-<p><img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source_posts\数据库第十六章笔记\3.png"></p>
+<p><img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/3.png"></p>
 <h3 id="3-2-恢复算法"><a href="#3-2-恢复算法" class="headerlink" title="3.2 恢复算法"></a>3.2 恢复算法</h3><h4 id="3-2-1-从事务中恢复"><a href="#3-2-1-从事务中恢复" class="headerlink" title="3.2.1 从事务中恢复"></a>3.2.1 从事务中恢复</h4><p>​    从日志的末尾向头扫描，对于每一条日志记录$&lt;T_i,X,V_1,V_2&gt;$，将$X$恢复为$V_1$。并且在补偿日志（Compensation Log Record）中记录这一恢复操作。</p>
 <p>​    当读到$&lt;T_i\space start&gt;$时，向日志中写$&lt;T_i\space abort&gt;$。</p>
 <h4 id="3-2-2-从故障中恢复"><a href="#3-2-2-从故障中恢复" class="headerlink" title="3.2.2 从故障中恢复"></a>3.2.2 从故障中恢复</h4><p>​    故障恢复相对比较复杂，要经历两个操作：Redo和Undo。</p>
@@ -551,7 +551,7 @@
 <p>​    当读到$&lt;T_i,X,V_1,V_2&gt;$时，将$X$恢复为$V_1$。并且在补偿日志（Compensation Log Record）中记录这一恢复操作$&lt;T_i,X,V_1&gt;$。</p>
 <p>​    当读到$&lt;T_i\space start&gt;$时，从<code>undo-list</code>中删除$T_i$。在日志中写$&lt;T_i\space abort&gt;$。</p>
 <p>​    当<code>undo-list</code>为空，停止。</p>
-<p><img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/myblog\source_posts\数据库第十六章笔记\4.png"></p>
+<p><img src="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/4.png"></p>
 <h3 id="3-3-日志缓冲区"><a href="#3-3-日志缓冲区" class="headerlink" title="3.3 日志缓冲区"></a>3.3 日志缓冲区</h3><p>​    每生成一条日志记录就将其写到稳定存储器中很显然是不现实的，因此最好是先将记录写到缓冲区中，然后一次性将它们写到稳定存储器中。</p>
 <p>​    当然，假如日志在写到缓冲区后出现断电的情况，日志仍有可能丢失。所以我们要采用WAL规则（Write-Ahead Log），也就是只有日志写完以后，才算完成事务的commit。</p>
 <h3 id="3-4-数据库缓冲区"><a href="#3-4-数据库缓冲区" class="headerlink" title="3.4 数据库缓冲区"></a>3.4 数据库缓冲区</h3><p>​    强制策略与非强制策略：强制策略指事务在提交时，强制将修改过的块输出到磁盘。</p>
@@ -693,38 +693,34 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/08/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E7%AC%94%E8%AE%B0/">
+                <a href="/2020/09/09/%E8%99%9A%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="数据库系统概念第十六章——恢复系统">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="C++中的虚函数与纯虚函数">
                         
-                        <span class="card-title">数据库系统概念第十六章——恢复系统</span>
+                        <span class="card-title">C++中的虚函数与纯虚函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据库系统概念第十六章——恢复系统1. 故障分类
-事务故障
-
-逻辑错误（比如非法输入、找不到数据、溢出）
-系统错误（比如死锁）
-
-
-系统崩溃
-由于操作系统、断电等硬软件错误导致的故障。非易失性的存储器（nonvolatile storage
+                            C++中的虚函数与纯虚函数1. 什么是虚函数？​    虚函数是C++实现多态的手段。凡是类中的函数带有virtual定义的函数都被称为虚函数。
+​    如下，类A中的foo()就是一个虚函数。
+class A
+{
+public:
+   
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-30
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -733,16 +729,11 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/database/">
-                        <span class="chip bg-color">database</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
-                        <span class="chip bg-color">数据库系统概念</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
                     </a>
                     
                 </div>
@@ -926,6 +917,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 </main>
 
 
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
 
 
     <footer class="page-footer bg-color">
@@ -994,7 +992,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">81.4k</span>&nbsp;字
+                class="white-color">91.6k</span>&nbsp;字
             
             
             

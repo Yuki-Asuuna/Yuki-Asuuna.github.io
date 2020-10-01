@@ -458,14 +458,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-28
+                    2020-09-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    2.7k
                 </div>
                 
 
@@ -539,7 +539,7 @@
 <p>​    如果等待图中出现了环，说明出现死锁。</p>
 <p>​    一旦发现死锁，那么选出一个事务rollback即可。</p>
 <h3 id="2-3-死锁的恢复"><a href="#2-3-死锁的恢复" class="headerlink" title="2.3 死锁的恢复"></a>2.3 死锁的恢复</h3><p>​    检测到死锁后，最常见的恢复做法就是回滚一个或多个事务。</p>
-<p>​    回滚的力度有两种：<u>部分回滚</u>和<u>全部回滚</u>。</p>
+<p>​    回滚的力度有两种：<u>部分回滚</u>（回滚到某个check point）和<u>全部回滚</u>（终止事物，重新开始）。</p>
 <h2 id="3-多粒度"><a href="#3-多粒度" class="headerlink" title="*3. 多粒度"></a>*3. 多粒度</h2><p>​    我们可以将多个数据项聚成一组，将它们作为一个同步单元。</p>
 <p>​    该部分略。</p>
 <h2 id="4-基于时间戳的协议"><a href="#4-基于时间戳的协议" class="headerlink" title="4. 基于时间戳的协议"></a>4. 基于时间戳的协议</h2><p>​    时间戳协议保证任何有冲突的$read$或$write$操作按时间戳顺序执行。</p>
@@ -1016,7 +1016,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">81.4k</span>&nbsp;字
+                class="white-color">91.6k</span>&nbsp;字
             
             
             
